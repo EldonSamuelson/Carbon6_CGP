@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+	<strong>   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="lea5139.css">
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+      integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+          crossorigin=""></script>
+		<script src="navsync.js"></script>
+		<script src="lightbox.js"></script>
+		<script src="bouncemarker"></script>
+		<a href="https://github.com/Leaflet/Leaflet.label" target="_blank">Leaflet.label</a>, 
+		<a href="https://github.com/maximeh/leaflet.bouncemarker" target="_blank">leaflet.bouncemarker</a> and 
+		<a href="https://github.com/lokesh/lightbox2/" target="_blank">lightbox2</a>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></strong>
+    <link rel="stylesheet" type="text/css" href="DATAPAGE.css">
+    <title>Document</title>
+</head>
+<body>
+  <nav>
+       <div class="small-header" id="top">
+         <img src="carbon-logo.png" alt="C6logo" class="logo">
+         <div class="row">
+             <ul class="main-nav">
+                 <li><a href="https://www.geos.ed.ac.uk/">HOME</a></li>
+                 <li><a href="https://www.geos.ed.ac.uk/">ABOUT</a></li>
+                 <li><a href="https://www.geos.ed.ac.uk/">PROJECTS</a></li>
+                 <li><a href="https://www.geos.ed.ac.uk/">CONTACT US</a></li>
+           </ul>
+         </div>
+	  </div>
+     </nav>
+	<hr>
+		</br>
+<main class="site-content">
+
+    <section class="site-content-section">
+		
+   <article class="site-content-item-1">
+	
+		<div class="container1">
+      
+      <div class="row">
+        <div class="col-6">
+          <h1>TIME TO EXPLORE</h1>
+        </div>
+      
+      <div class="row">
+        <div class="col-md-8 col-sm-12">
+          <div class="media">
+            <img class="mr-3" src="images/115X115.gif" alt="Generic placeholder image">
+            <div class="media-body">
+              <h5 class="mt-0">The Environmental Deprivation Index</h5>
+              Short note on environmental deprivation, find out deprivation of your area
+            </div>
+          </div>
+        </div>
+        <div class="col-md-5 col-sm-12">
+          <div class="row justify-content-md-around m-1">
+           
+        </article>
+
+<article class="site-content-item-2">
+          <div style="height: 385px;" id="mapid"></div>
+		  <div style="height: 385px;" id="mapid2"></div>
+		  
+
+          <script>
+            "use strict";
+
+            let corsto = L.latLng(55.952372, -3.271666);
+            let bingham = L.latLng(55.940572, -3.124050);
+            let figgate = L.latLng(55.950197, -3.123985);
+            let saughton = L.latLng(55.934725, -3.250063);
+            let roseburn = L.latLng(55.944670, -3.239944);
+            let pilrig = L.latLng(55.968214, -3.181102);
+
+            let mapid = L.map("mapid").setView([55.942856, -3.192119], 12);
+			let map = L.map("mapid2").setView([55.942856, -3.192119], 12);
+			  
+			L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', {
+               	  attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
+                  maxZoom: 20
+               }).addTo(mapid);
+
+            L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', {
+                  attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
+                  maxZoom: 20
+               }).addTo(map);
+
+            var myIcon = L.icon({
+               iconUrl: 'my-icon.png',
+               iconSize: [30, 40],
+               iconAnchor: [null],
+               popupAnchor: [15, 20],
+             });
+
+            let corstoMarker = L.marker((corsto), {icon: myIcon}).addTo(map);
+            let binghamMarker = L.marker((bingham), {icon: myIcon}).addTo(map);
+            let figgateMarker = L.marker((figgate), {icon: myIcon}).addTo(map);
+            let saughtonMarker = L.marker((saughton), {icon: myIcon}).addTo(map);
+            let roseburnMarker = L.marker((roseburn), {icon: myIcon}).addTo(map);
+            let pilrigMarker = L.marker((pilrig), {icon: myIcon}).addTo(map);
+		
+
+            corstoMarker.bindPopup("<b>Corstophine</b>").openPopup();
+            binghamMarker.bindPopup("<b>Bingham</b>").openPopup();
+            figgateMarker.bindPopup("<b>Figgate Burn</b>").openPopup();
+            saughtonMarker.bindPopup("<b>Saughton</b>").openPopup();
+            roseburnMarker.bindPopup("<b>Roseburn</b>").openPopup();
+            pilrigMarker.bindPopup("<b>Pilrig</b>").openPopup();
+			  
+			mapid.sync(map);
+
+            </script>
+
+        </article>
+    </section>
+	
+		  </article>
+
+
+</main>
+
+</body>
+</html>
