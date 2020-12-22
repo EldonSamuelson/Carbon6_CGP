@@ -1,0 +1,38 @@
+Content-Type: text/html
+
+<!DOCTYPE html>
+
+<head>
+<title>Templating Capital Greenspace Project</title>
+<p> How does my neighbourhood rank?</p>
+</head>
+<script language="JavaScript">
+function DoStuff(form) {
+  Neighbourhood = form.neighbourhood.value;
+  PostCode = form.postcode.value;
+  }
+</script>
+<form name="myform" action="" method="get">
+<table>
+  <TR>
+    <TD class = "select">Neighbourhood
+    </TD>
+    <TD ALIGN="center">
+       <select>
+            <option value="Abbeyhill">Abbeyhill</option>
+            <option value="Portobello">Portobello</option>
+       </select>
+    </TD>
+</TR>
+<tr><td>or,</td>
+<tr><td>PostCode:</td> <td><input type="text" name="PostCode" size=9 maxlength=9></td></tr>
+<tr><td></td><td><input type="button" value="Submit"
+onClick="DoStuff(this.form)"></td></tr>
+</table>
+</form>
+<body>
+<p> You have choosen the {{castles}} area of Edinburgh.</p>
+<p> This area has an Environmental Deprivation Index Value of {{castles}}.</p>
+<p> {{map}} </p>
+</body>
+</html>
