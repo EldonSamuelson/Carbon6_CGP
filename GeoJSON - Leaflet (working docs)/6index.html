@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+      integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+          crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+      integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+          crossorigin=""></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-ajax/2.1.0/leaflet.ajax.min.js"></script>
+    <link rel="stylesheet" href="2styles.css"/>
+
+    <title>Document</title>
+</head>
+
+<body>
+
+<header class="nav-bar">
+
+    <h1 class="logo">
+      <img src="c6.svg" alt="Our team's logo">
+      </a></h1>
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item"><a href="#">EDINBURGH -</a></li>
+            <li class="nav-item"><a href="#"> - PRAGUE - </a></li>
+            <li class="nav-item"><a href="#"> - TOKYO</a></li>
+        </ul>
+
+    </nav>
+
+</header>
+
+<main class="site-content">
+
+    <section class="site-content-section">
+
+        <article class="site-content-item-1">
+            <p>
+                some content some content some content some content some content some content some content some content some content
+            </p>
+        </article>
+
+        <article class="site-content-item-2">
+
+          <div style="height: 600px;" id="mapid"></div>
+
+          <script>
+            "use strict";
+
+            var satIcon = L.icon({
+                iconUrl: 'satellite.png',
+                iconSize: [40, 40],
+                iconAnchor: [20, 40],
+                popupAnchor: [0, -20]
+              });
+
+            var corsto = L.marker([55.952372, -3.271666], {icon: satIcon}).bindPopup("<b>Corstophine</b><br><a href='corst.jpeg'>View Aerial Image</a>");
+            var bingham = L.marker([55.940572, -3.124050], {icon: satIcon}).bindPopup("<b>Bingham</b><br><a href='bing.jpeg'>View Aerial Image</a>");
+            var figgate = L.marker([55.950197, -3.123985], {icon: satIcon}).bindPopup("<b>Figgate Burn</b><br><a href='figg.jpeg'>View Aerial Image</a>");
+            var saughton = L.marker([55.934725, -3.250063], {icon: satIcon}).bindPopup("<b>Saughton</b><br><a href='saugh.jpeg'>View Aerial Image</a>");
+            var roseburn = L.marker([55.944670, -3.239944], {icon: satIcon}).bindPopup("<b>Roseburn</b><br><a href='rose.jpeg'>View Aerial Image</a>");
+            var pilrig = L.marker([55.968214, -3.181102], {icon: satIcon}).bindPopup("<b>Pilrig</b><br><a href='pil.jpeg'>View Aerial Image</a>");
+
+            var greenspaces = L.layerGroup([corsto, bingham, figgate, saughton, roseburn, pilrig]);
+
+            var gjsonlayer = new L.GeoJSON.AJAX("gj_1.geojson");
+
+            var light = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}{r}.{ext}', {
+	               attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+	               subdomains: 'abcd',
+	               minZoom: 0,
+	               maxZoom: 20,
+	               ext: 'png'
+               });
+
+            var dark = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+	               attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+	               subdomains: 'abcd',
+	               maxZoom: 19
+               });
+
+            var map = L.map('mapid', {
+                 center: [55.942856, -3.192119],
+                 zoom: 12,
+                 layers: [light, greenspaces, gjsonlayer]
+               });
+
+            var baseMaps = {
+                "Light": light,
+                "Dark": dark
+              };
+
+            var overlayMaps = {
+                "Greenspaces": greenspaces,
+                "EDI 1": gjsonlayer
+              };
+
+            L.control.layers(baseMaps, overlayMaps).addTo(map);
+
+            </script>
+
+        </article>
+
+        <article class="site-content-item-3">
+            <p>
+                some content some content some content some content some content some content some content some content some content
+            </p>
+        </article>
+
+    </section>
+
+
+</main>
+
+</body>
+</html>
