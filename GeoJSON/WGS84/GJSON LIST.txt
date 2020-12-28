@@ -1,0 +1,19 @@
+In here, we have:
+
+- EDI Merged: The new EDI with merged districts to match the records we have in the Forms for the webmap,
+with all the correct statistics and stuff.
+
+- EDI Non Merged: The EDI as we originally had it in the presentation and report. 
+Not to be used in the Forms.
+
+- FW Greenspaces: The Fieldwork selected greenspaces from the report/earlier. Not much more to say.
+
+- NFI11_18: The National Forest Inventory change(Ha) 2011-18 shapefile, as from the report.
+
+- Open Space Audit 2016: From Edinburgh council, their audit of all greenspaces
+from 2016 as well as their conditions environmentally, and "greenspacieness". It's
+the most recent Audit as the next is in 2021!
+
+- Protected Areas New: This is a new shapefile to corect the incorrectable projection
+issues, and includes 4 constituent parts as listed and explained in the 
+"PA New Constituents" folder. Read the README in the folder!
