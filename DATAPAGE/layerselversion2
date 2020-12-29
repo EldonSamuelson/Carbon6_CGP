@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+      integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+          crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+      integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+          crossorigin=""></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-ajax/2.1.0/leaflet.ajax.min.js"></script>
+	<script src="navsync.js"></script>
+	<link rel="stylesheet" type="text/css" href="DATAPAGE.css">
+
+    <title>Document</title>
+</head>
+<body>
+  <nav>
+       <div class="small-header" id="top">
+         <img src="carbon-logo.png" alt="C6logo" class="logo">
+         <div class="row">
+             <ul class="main-nav">
+                 <li><a href="https://www.geos.ed.ac.uk/">HOME</a></li>
+                 <li><a href="https://www.geos.ed.ac.uk/">ABOUT</a></li>
+                 <li><a href="https://www.geos.ed.ac.uk/">PROJECTS</a></li>
+                 <li><a href="https://www.geos.ed.ac.uk/">CONTACT US</a></li>
+           </ul>
+         </div>
+	  </div>
+     </nav>
+	<hr>
+		</br>
+<main class="site-content">
+
+    <section class="site-content-section">
+ <article class="site-content-item-1">
+		<div class="container1">
+      
+      <div class="row">
+        <div class="col-6">
+          <h1>TIME TO EXPLORE</h1>
+        </div>
+      
+      <div class="row">
+        <div class="col-md-8 col-sm-12">
+          <div class="media">
+            <img class="mr-3" src="images/115X115.gif" alt="Generic placeholder image">
+            <div class="media-body">
+              <h5 class="mt-0">The Environmental Deprivation Index</h5>
+              Short note on environmental deprivation, find out deprivation of your area
+            </div>
+          </div>
+        </div>
+        <div class="col-md-5 col-sm-12">
+          <div class="row justify-content-md-around m-1">
+    </article>
+
+
+        <article class="site-content-item-2">
+
+          <div style="height: 300px;" id="mapid"></div>
+		  <div style="height: 300px;" id="mapid2"></div>
+
+          <script>
+            "use strict";
+
+            var satIcon = L.icon({
+                iconUrl: 'satellite.png',
+                iconSize: [40, 40],
+                iconAnchor: [20, 40],
+                popupAnchor: [0, -20]
+              });
+
+            var corsto = L.marker([55.952372, -3.271666], {icon: satIcon}).bindPopup("<b>Corstophine</b><br><a href='corst.jpeg'>View Aerial Image</a>");
+            var bingham = L.marker([55.940572, -3.124050], {icon: satIcon}).bindPopup("<b>Bingham</b><br><a href='bing.jpeg'>View Aerial Image</a>");
+            var figgate = L.marker([55.950197, -3.123985], {icon: satIcon}).bindPopup("<b>Figgate Burn</b><br><a href='figg.jpeg'>View Aerial Image</a>");
+            var saughton = L.marker([55.934725, -3.250063], {icon: satIcon}).bindPopup("<b>Saughton</b><br><a href='saugh.jpeg'>View Aerial Image</a>");
+            var roseburn = L.marker([55.944670, -3.239944], {icon: satIcon}).bindPopup("<b>Roseburn</b><br><a href='rose.jpeg'>View Aerial Image</a>");
+            var pilrig = L.marker([55.968214, -3.181102], {icon: satIcon}).bindPopup("<b>Pilrig</b><br><a href='pil.jpeg'>View Aerial Image</a>");
+
+            var greenspaces = L.layerGroup([corsto, bingham, figgate, saughton, roseburn, pilrig]);
+
+            var gjsonEDI = new L.GeoJSON.AJAX("gj_1.geojson");
+		
+			var gjsonGSp = new L.GeoJSON.AJAX("FWGreenspaces.geojson");
+			var gjsonNFI1_8 = new L.GeoJSON.AJAX("NFI_Ed11_18.geojson");
+			var ProtAreaNew = new L.GeoJSON.AJAX("PrArNew.geojson");
+		
+			  
+            var light = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}{r}.{ext}', {
+	               attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+	               subdomains: 'abcd',
+	               minZoom: 0,
+	               maxZoom: 20,
+	               ext: 'png'
+               });
+
+            var dark = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+	               attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+	               subdomains: 'abcd',
+	               maxZoom: 19
+               });
+
+            var map = L.map('mapid', {
+                 center: [55.942856, -3.192119],
+                 zoom: 12,
+                 layers: [light, greenspaces, gjsonEDI, gjsonGSp, gjsonNFI1_8, ProtAreaNew]
+               });
+			  
+			var map1 = L.map('mapid2', {
+                 center: [55.942856, -3.192119],
+                 zoom: 12,
+                 layers: [dark, greenspaces, gjsonEDI, gjsonGSp, gjsonNFI1_8, ProtAreaNew]
+               });
+
+
+            var baseMaps = {
+                "Light": light,
+                "Dark": dark
+              };
+
+            var overlayMaps = {
+                "Greenspaces": greenspaces,
+                "EDI 1": gjsonEDI,
+				"Act Greenspaces": gjsonGSp,
+				"NFI 2011-18": gjsonNFI1_8,
+				"Protected Areas": ProtAreaNew
+              };
+
+            L.control.layers(baseMaps, overlayMaps).addTo(map);
+			L.control.layers(baseMaps, overlayMaps).addTo(map1);
+			  
+
+            </script>
+			<script>map.sync(map1);
+			</script>
+        </article>
+
+        <article class="site-content-item-3">
+            <p>
+            </p>
+        </article>
+
+    </section>
+
+
+</main>
+
+</body>
+</html>
