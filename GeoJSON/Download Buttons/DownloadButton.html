@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+  
+<head>
+<meta charset="UTF-8">
+<title>HTMLButtonDownload</title>
+</head>
+
+<body>
+<style>
+/*This centres the Buttons */
+form {text-align: center;}
+</style>
+
+<!--
+These download buttons allow for users of the map to import the entire GeoJSONs to their computer for personal use. The files that are available are either sourced originally from publically available data online (Edinburgh Council, The Forestry Commssion, etc), or made/modified by our group (Group 6) which we are allowing to be made available.
+
+Sources for implementation:
+1: How to make a HTML button specifically to download a file (https://stackoverflow.com/questions/11620698/how-to-trigger-a-file-download-when-clicking-an-html-button-or-javascript)
+
+2:HTML Formaction - 2 buttons to one form that each do different things (https://www.w3schools.com/tags/att_button_formaction.asp),found via (https://stackoverflow.com/posts/31919153/revisions)
+
+3:How to host a file within a website (https://stackoverflow.com/questions/46189634/how-to-host-a-zip-file-and-download-it-using-asp-net-c)
+-->
+<!--This was written on Dec 31 2020. Happy 2021!-->
+
+<form action="https://www.geos.ed.ac.uk/~s2133927/Map_OSGB36.zip" method="get">
+  <!--This button begins a download of the OSGB projected  mapfiles -->
+  <button type="submit">Download .ZIP of features in OSGB36 (3.3MB)</button>
+  
+  <!--This button begins a download of the WGS84 projected mapfiles -->
+  <button type="submit" formaction="https://www.geos.ed.ac.uk/~s2133927/Map_WGS84.zip">Download .ZIP of features in WGS84 (5.36MB)</button>
+  
+</form>
+</body>
+<a href="https://www.geos.ed.ac.uk/~s2133927/Welcome.html">Take me back (to the Welcome Page)</a>
+</html>
