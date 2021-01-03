@@ -6,3 +6,5 @@ All the contents inside public_html directory of github must go inside public_ht
 Working link just for reference sake https://www.geos.ed.ac.uk/~s2041305/form1.html (after u have placed everything in your directory, replace sxxxxxxx with your id) )
 Documentation on working/technology used will be uploaded in due course
 For edipredictformatting.html, you need a folder within public_html called CGS containing the photos then update the link in the html file to your studentID.
+Images will need chnaged once final aesthetics are confirmed.
+Formatting files are not yet using CSS (styling only in head).
