@@ -14,8 +14,6 @@ form = cgi.FieldStorage()
 mylist1=[]
 mylist2=[]
 mylist3=[]
-mylist4=[]
-x=0
 
 # Get data from radiobutton 
 
