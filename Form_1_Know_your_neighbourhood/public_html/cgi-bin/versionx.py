@@ -42,25 +42,25 @@ conn = cx_Oracle.connect(dsn="geoslearn",user="s1624036",password=pw)
 c = conn.cursor()
 # checking for radio button choices
 if user_choice=='Demographic':
-    c.execute("SELECT ZONENAME, EDIRANK, AREAHA, POP, POPPERHA FROM EDI")
+    c.execute("SELECT ZONENAME, EDIRANK, AREAHA, POP, POPPERHA FROM EDITEST")
     for row in c:
         mylist2.append(row)
     fields=("ZONE NAME", "EDI RANK", "AREA (ha)", "POPULATION", "POPULATION DENSITY")
     conn.close
 elif user_choice=='Environmental':
-    c.execute("SELECT ZONENAME, EDIRANK, TREECOUNT, TREESPERHA, MEANDBH, JUVCOUNT, JUVPERHA, SPECIES, SPECIESPERTREE FROM EDI")
+    c.execute("SELECT ZONENAME, EDIRANK, TREECOUNT, TREESPERHA, MEANDBH, JUVCOUNT, JUVPERHA, SPECIES, SPECIESPERTREE FROM EDITEST")
     for row in c:
         mylist2.append(row) 
     fields=("ZONE NAME", "EDI RANK", "TOTAL TREE COUNT", "TREES (PER ha)", "MEAN DBH (cm)", "JUVENILE TREE COUNT", "JUVENILE TREES (PER ha)", "TOTAL TREE SPECIE COUNT", "TREE SPECIES (PER ha)")
     conn.close
 elif user_choice=='Tree_Percentage':
-    c.execute("SELECT ZONENAME, EDIRANK, PERCHIGH, PERCMED, NFIPERC FROM EDI")
+    c.execute("SELECT ZONENAME, EDIRANK, PERCHIGH, PERCMED, NFIPERC FROM EDITEST")
     for row in c:
         mylist2.append(row) 
     fields=("ZONE NAME", "EDI RANK", "DENSE TREES", "SCATTERED TREES", "WOODLAND COVER")
     conn.close   
 elif user_choice=='Tree_Hectare':
-    c.execute("SELECT ZONENAME, EDIRANK, HIGHHA, MEDHA, NFIHA FROM EDI")
+    c.execute("SELECT ZONENAME, EDIRANK, HIGHHA, MEDHA, NFIHA FROM EDITEST")
     for row in c:
         mylist2.append(row) 
     fields=("ZONE NAME", "EDI RANK", "DENSE TREES", "SCATTERED TREES", "WOODLAND COVER")
