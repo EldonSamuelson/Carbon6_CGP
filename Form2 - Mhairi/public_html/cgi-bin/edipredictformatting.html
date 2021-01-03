@@ -1,0 +1,81 @@
+Content-Type: text/html
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EDI Improve</title>
+<!--need to add style-->
+<style>
+  body
+  {
+    background-color: #A9A9A9;
+  }
+  #head
+  {
+    text-align: center;
+  }
+  #Tree
+  {
+    border-radius: 15px;
+    background-color: green;
+    text-align: center;
+    vertical-align: middle;
+  }
+  #Carbon
+  {
+    border-radius: 15px;
+    background-color: darkolivegreen;
+    text-align: center;
+  }
+  #Forest
+  {
+    border-radius: 15px;
+    border-color: darkgreen;
+    vertical-align: middle;
+    text-align: center;
+  }
+</style>
+</head>
+
+<body>
+  </div>
+  <!--The following is the output for zones which do not originally meet the target EDI set-->
+  <div id="head" style="position:absolute;left:0px;top:0px;width:650px;height:50px;z-index:13;">
+    <h2>{{name}}</h2>
+    <p>{{head}}</p>
+  </div>
+  <div id="Tree" style="position:absolute;left:0px;top:90px;width:680px;height:130px;z-index:13;">
+    <div id="icon1" style="backgroud-color:#A9A9A9;position:absolute;left:0px;top:15px;width:130px;height:130px;z-index:12;">
+      <img src=CGS/Tree2.jpg" alt="tree" style="width=100px;height:100px"/>
+    </div>
+    <div id="Treetext" style="position:absolute;left:160px;top:0px;width:520px;height:130px;z-index:13;">
+      <p>{{tree}}</p>
+    </div>
+  </div>
+  <div id="Carbon" style="position:absolute;left:0px;top:230px;width:680px;height:130px;z-index:13;">
+    <div id="icon2" style="position:absolute;left:0px;top:15px;width:130px;height:130px;z-index:12;">
+      <img src="CGS/carbon.jpg" alt="forest" style="width=100px;height:100px"/>
+    </div>
+    <div id="Carbontext" style="position:absolute;left:160px;top:0px;width:520px;height:130px;z-index:12;">
+      <p>{{carbon}}</p>
+    </div>
+  </div>
+  <div id="Carbon" style="position:absolute;left:0px;top:370px;width:680px;height:130px;z-index:13;">
+    <div id="icon3" style="position:absolute;left:0px;top:15px;width:130px;height:130px;z-index:12;">
+      <img src="CGS/Forest.jpg" alt="forest" style="width=100px;height:100px"/>
+    </div>
+    <div id="Forest" style="position:absolute;left:160px;top:0px;width:520px;height:130px;z-index:13;">
+      <p>{{forest}} {{forest1}}</p>
+    </div>
+  </div>
+  <div id="Note" style="position:absolute;left:50px;top:500px;width:600px;height:200px;z-index:13;">
+    <p>Note: Planting additional trees refers to council owned trees, to ensure management and protection. These trees can either be scattered across the zone (around parks or along streets) or located in one area which would enhance the amount of high carbon land cover and amount of woodland present. </p>
+    <p>Woodland refers to at least 0.5 ha of tree cover.</p>
+    <p>For built-up areas, it may not be possible to find spare land to afforest and in these circumstances priority should be given to protecting the already existing trees. Setting a lower EDI target may also be more achievable.</p>
+  </div>
+
+
+</body>
+</html>
