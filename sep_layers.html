@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+      integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+          crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+      integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+          crossorigin=""></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-ajax/2.1.0/leaflet.ajax.min.js"></script>
+    <script type="text/javascript" src="mod.js"></script>
+    <link rel="stylesheet" href="2styles.css"/>
+
+    <title>Document</title>
+</head>
+
+<body>
+
+<header class="nav-bar">
+
+    <h1 class="logo">
+      <img src="c6.svg" alt="Our team's logo">
+      </a></h1>
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item"><a href="#">EDINBURGH -</a></li>
+            <li class="nav-item"><a href="#"> - PRAGUE - </a></li>
+            <li class="nav-item"><a href="#"> - TOKYO</a></li>
+        </ul>
+
+    </nav>
+
+</header>
+
+<main class="site-content">
+
+    <section class="site-content-section">
+
+        <article class="site-content-item-1">
+              <p>
+                  some content some content some content some content some content some content some content some content some content
+              </p>
+          </article>
+
+        <article class="site-content-item-2">
+
+          <div style="height: 600px;" id="mapid"></div>
+
+          <script>
+            "use strict";
+
+            // create 'satellite icon for plot locations'
+            var satIcon = L.icon({
+                iconUrl: 'satellite.png',
+                iconSize: [40, 40],
+                iconAnchor: [20, 40],
+                popupAnchor: [0, -20]
+              });
+
+            // set plot location markers and associated popups
+            var corsto = L.marker([55.952372, -3.271666], {icon: satIcon}).bindPopup("<b>Corstophine</b><br><center><img src='corst.jpeg' style='width:200px;height:300x;'></center><br><a target='_blank' href='corsto_c.png'>View larger image</a>");
+            var bingham = L.marker([55.940572, -3.124050], {icon: satIcon}).bindPopup("<b>Bingham</b><br><center><img src='bing.jpeg' style='width:200px;height:300x;'></center><br><a target='_blank' href='bing_c.png'>View larger image</a>");
+            var figgate = L.marker([55.950197, -3.123985], {icon: satIcon}).bindPopup("<b>Figgate Burn</b><br><center><img src='figg.jpeg' style='width:200px;height:300x;'></center><br><a target='_blank' href='figg_c.png'>View larger image</a>");
+            var saughton = L.marker([55.934725, -3.250063], {icon: satIcon}).bindPopup("<b>Saughton</b><br><center><img src='saugh.jpeg' style='width:200px;height:300x;'></center><br><a target='_blank' href='saugh_c.png'>View larger image</a>");
+            var roseburn = L.marker([55.944670, -3.239944], {icon: satIcon}).bindPopup("<b>Roseburn</b><br><center><img src='rose.jpeg' style='width:200px;height:300x;'></center><br><a target='_blank' href='rose_c.png'>View larger image</a>");
+            var pilrig = L.marker([55.968214, -3.181102], {icon: satIcon}).bindPopup("<b>Pilrig</b><br><center><img src='pil.jpeg' style='width:200px;height:300x;'></center><br><a target='_blank' href='pil_c.png'>View larger image</a>");
+
+            // create plot location layer group
+            var greenspaces = L.layerGroup([corsto, bingham, figgate, saughton, roseburn, pilrig]);
+
+            // Create new GeoJSON layer with use of AJAX plugin
+            new L.GeoJSON.AJAX('gj_1.geojson');
+
+            // Filter seperate layer to EDI Rank from GeoJSON
+            var edilayer = new L.GeoJSON.AJAX('gj_1.geojson', {filter: edirank});
+
+            // Set properties that filter follows
+            function edirank(feature, properties) {
+              return (feature.properties.EDIRANK)
+            };
+
+            // Filter seperate layer to Tree Count from GeoJSON
+            var treecount = new L.GeoJSON.AJAX('gj_1.geojson', {filter: treesnum});
+
+            // Set properties that filter follows
+            function treesnum(feature, properties) {
+              return (feature.properties.TREECOUNT)
+            };
+
+            // Filter seperate layer to Juvunile Tree Count from GeoJSON
+            var juvuniles = new L.GeoJSON.AJAX('gj_1.geojson', {filter: juvnum});
+
+            // Set properties that filter follows
+            function juvnum(feature, properties) {
+              return (feature.properties.JUVCOUNT)
+            };
+
+            // Filter seperate layer to DBH Average from GeoJSON
+            var dbhrank = new L.GeoJSON.AJAX('gj_1.geojson', {filter: dbhval});
+
+            // Set properties that filter follows
+            function dbhval(feature, properties) {
+              return (feature.properties.MEANDBH)
+            };
+
+            // Filter seperate layer to Species Count from GeoJSON
+            var speciesnum = new L.GeoJSON.AJAX('gj_1.geojson', {filter: speciesval});
+
+            // Set properties that filter follows
+            function speciesval(feature, properties) {
+              return (feature.properties.SPECIES)
+            };
+
+            // Filter seperate layer to Population from GeoJSON
+            var popul = new L.GeoJSON.AJAX('gj_1.geojson', {filter: popnum});
+
+            // Set properties that filter follows
+            function popnum(feature, properties) {
+              return (feature.properties.POP)
+            };
+
+            // Set light basemap option. Assign attribution.
+            var light = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}{r}.{ext}', {
+	               attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+	               subdomains: 'abcd',
+	               minZoom: 0,
+	               maxZoom: 20,
+	               ext: 'png'
+               });
+
+            // Set dark basemap option. Assign attribution.
+            var dark = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+	               attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+	               subdomains: 'abcd',
+	               maxZoom: 19
+               });
+
+            // Create leaflet map, set view and add layers
+            var map = L.map('mapid', {
+                 center: [55.942856, -3.192119],
+                 zoom: 12,
+                 layers: [light, greenspaces]
+               });
+
+            // Assign basemaps
+            var baseMaps = {
+                "Light": light,
+                "Dark": dark
+              };
+
+            // Assign Overlays maps based on GeoJSON Layers
+            var overlayMaps = {
+                "Greenspaces": greenspaces,
+                "EDI Rank": edilayer,
+                "Tree Count": treecount,
+                "Juvunile Count": juvuniles,
+                "DBH Average": dbhrank,
+                "Species Count": speciesnum,
+                "Population": popul
+              };
+
+            // Set seperate layer control
+            L.control.layers(baseMaps).addTo(map);
+            L.control.layers(overlayMaps).addTo(map);
+
+            </script>
+
+        </article>
+
+        <article class="site-content-item-3">
+            <p>
+                some content some content some content some content some content some content some content some content some content
+            </p>
+        </article>
+
+    </section>
+
+
+</main>
+
+</body>
+</html>
