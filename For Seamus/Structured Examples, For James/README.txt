@@ -6,7 +6,7 @@ THE RAW FILES ARE FOR EASE OF READING IN GITLAB - THEY WILL NOT WORK UNLESS YOU 
 
 
 (Changelog)
-4-1-21
+4-1-21(#1)
 Notes on Datapage.css (also within the CSS code as a comment)
 The above @media widths are not doing anything as they aren't styled, at all (they are functionally empty). Setting the original min width down
 to 600px stopped the screen losing styling until it is 600px (phone width?) and all the elements styled below are still within an aesthetic look (though everything is crumpled together)
@@ -14,7 +14,7 @@ Another observation is h5 is causing the screen to be wider than any possible wi
 h5 might just need another margin property to keep it in line with the main container. I suggest removing the above @medias, and just keeping this one as the "main" style that covers all widths.*/
 
 5-1-21
-New Notes on CSS/HTML
+New Notes on CSS/HTML (#2, now removed)
 
 'mark.html' renamed to 'DATAPAGE.html' - Does literally nothing to the code or CSS.
 
@@ -30,3 +30,6 @@ The font styles of DATAPAGE have been used on FRONTPAGE. Generally;
 
 I fixed the DATAPAGE being slightly wider than any screen (leaving the awful sidescroll bar). ".actionitem 4" (the text between the maps and the nav bar) 
 had a width setting at !00% that for some reason was larger than the page. Deleteing it removed it, and sorted some issues I had with the nav bar link styles too.
+
+5-1-21 (version #2-1)
+Referenced correctly to the head background for the DATAPAGE. Updated ZIP to #2-1. Removed #2 as that's literally the only difference.
