@@ -1,0 +1,355 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>EDI Form</title>
+<link rel="stylesheet" type="text/css" href="FORMPAGE.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+          crossorigin=""/>
+<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Darker+Grotesque:wght@400;500&family=Jura&family=Montserrat:wght@200&display=swap" rel="stylesheet">
+</head>
+<body>
+
+	
+<nav>
+  <div class="small-header" id="top">
+      <img src="carbon-logo.png" alt="C6logo" class="logo">
+        <div class="row">
+           <ul class="main-nav">
+              <li><a href="https://www.geos.ed.ac.uk/">HOME</a></li>
+              <li><a href="https://www.geos.ed.ac.uk/">ABOUT</a></li>
+              <li><a href="https://www.geos.ed.ac.uk/">PROJECTS</a></li>
+              <li><a href="https://www.geos.ed.ac.uk/">CONTACT US</a></li>
+           </ul>
+        </div>
+	</div>
+</nav>
+	<br>
+<main class="site-content">
+	 <h6>TIME TO EXPLORE</h6>
+	<h2>DATABASE QUERYING</h2>
+
+			<!------Select EDI---------Form 1 Upper Section----------------------------------------------------->
+	
+			<div id="g6_Form_1" style="position:absolute;left:100px;top:118px;width:1050px;height:400px;z-index:23;background-color: rgba(0,0,0,0.8); border: 1px solid rgba(0,0,0,1);
+    border-radius: 20px;">
+				<label for="" id="Select_Preference" style="position:absolute;top:83px;width:190px;height:16px;line-height:30px;z-index:3; font-size: 25px; color: #fff; font-family: 'Jura', sans-serif; left:109px; text-align: center;">EDI Ranking Pseudo-Spatial</label>
+			<form name="Form_1" method="post" target="EDIFrame1" action="cgi-bin/versiony.py" enctype="multipart/form-data" id="Form_1">
+			<label for="EDI_Combo" id="Select_EDI" style="position:absolute;left:8px;top:170px;width:68px;height:16px;line-height:25px;z-index:17; margin-left: 30px; font-size: 25px; color: #fff; font-family: 'Darker Grotesque', sans-serif; padding-left:24px;">Select EDI:</label>
+			<select name="EDI_Combo" size="1" id="EDI_Combo" style="position:absolute;left:87px;top:185px;width:100px;height:28px;z-index:18;  margin-left: 60px;">
+			<option selected value="0">0</option>
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
+			<option value="4">4</option>
+			<option value="5">5</option>
+			<option value="6">6</option>
+			<option value="7">7</option>
+			<option value="8">8</option>
+			<option value="9">9</option>
+			<option value="10">10</option>
+			</select>
+
+			<div id="g6_Text1" style="position:absolute;left:60px;top:250px;width:300px;height:30px;z-index:20; text-align: center;">
+			<span style="color:#B8B8B8; font-family:'Darker Grotesque', sans-serif; font-size:15px; word-spacing: 1px;"><em>Note: EDI ranking are in ascending order with EDI rank of 10 being the best performance </em></span></div>
+			<input type="submit" id="EDI_Submit" name="EDI_Submit" value="Submit" style="position:absolute;left:215px;top:185px;width:100px;height:28px;z-index:19;  margin-left: 50px;
+    word-spacing: 3px;
+    margin-bottom: 0px;
+    letter-spacing: 1px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 110;
+    text-transform: uppercase;">
+			</form>
+			</div>
+			<!------Zonewise Statistics-----Form 2 Lower Section-------------------------------------------------->
+
+			<div id="g6_Form_2" style="position:absolute;left:100px;top:536px;width:1050px;height:800px;z-index:22; background-color: rgba(0,0,0,0.8); border: 1px solid rgba(0,0,0,1);
+    border-radius: 20px;">
+			<form name="Form_2" method="post" target="ZonesFrame2" action="cgi-bin/versionx.py" enctype="multipart/form-data" id="Form_2">
+			<select name="Zones_Multicombo" multiple size="8" id="Zones_Multicombo" style="position:absolute;left:285px;top:210px;width:374px;height:130px;z-index:0;">
+			<option selected value="1">Abbeyhill</option>
+			<option value="2">Baberton and Juniper Green</option>
+			<option value="3">Balgreen and Roseburn</option>
+			<option value="4">Barnton, Cammo and Cramond South</option>
+			<option value="5">Bingham, Magdalene and The Christians</option>
+			<option value="6">Blackford, West Mains and Mayfield Road</option>
+			<option value="7">Blackhall</option>
+			<option value="8">Bonaly and The Pentlands</option>
+			<option value="9">Bonnington</option>
+			<option value="10">Boswall and Pilton</option>
+			<option value="11">Broomhouse and Bankhead</option>
+			<option value="12">Broughton North and Powderhall</option>
+			<option value="13">Broughton South</option>
+			<option value="14">Bruntsfield</option>
+			<option value="15">Canongate, Southside and Dumbiedykes</option>
+			<option value="16">Canonmills and New Town North</option>
+			<option value="17">Carrick Knowe</option>
+			<option value="18">Clermiston and Drumbrae</option>
+			<option value="19">Clovenstone and Wester Hailes</option>
+			<option value="20">Colinton and Kingsknowe</option>
+			<option value="21">Colinton Mains and Firrhill</option>
+			<option value="22">Comely Bank</option>
+			<option value="23">Comiston and Swanston</option>
+			<option value="24">Corstorphine</option>
+			<option value="25">Corstorphine North</option>
+			<option value="26">Corstorphine South</option>
+			<option value="27">Craigentinny</option>
+			<option value="28">Craigleith, Orchard Brae and Crewe Toll</option>
+			<option value="29">Craiglockhart</option>
+			<option value="30">Craigmillar</option>
+			<option value="31">Cramond</option>
+			<option value="32">Dalry and Fountainbridge</option>
+			<option value="33">Deans Village</option>
+			<option value="34">Drylaw</option>
+			<option value="35">Duddingston and Portobello South</option>
+			<option value="36">East Craigs North</option>
+			<option value="37">East Craigs South</option>
+			<option value="38">Easter Road and Hawkhill Avenue</option>
+			<option value="39">Fairmilehead</option>
+			<option value="40">Fernieside and Moredun South</option>
+			<option value="41">Gilmerton South and the Murrays</option>
+			<option value="42">Gorgie East</option>
+			<option value="43">Gorgie West</option>
+			<option value="44">Gracemount, Southhouse and Burdiehouse</option>
+			<option value="45">Granton and Royston Mains</option>
+			<option value="46">Granton South and Wardieburn</option>
+			<option value="47">Granton West and Salvesen</option>
+			<option value="48">Great Junction Street</option>
+			<option value="49">Greenbank and The Braids</option>
+			<option value="50">Hillside and Calton Hill</option>
+			<option value="51">Hyvots and Gilmerton</option>
+			<option value="52">Inverleith, Goldenacre and Warriston</option>
+			<option value="53">Jewel, Brunstane and Newcraighall</option>
+			<option value="54">Joppa</option>
+			<option value="55">Leith (Albert Street)</option>
+			<option value="56">Leith (Hermitage and Prospect Bank)</option>
+			<option value="57">Liberton East</option>
+			<option value="58">Liberton West and Braid Hills</option>
+			<option value="59">Longstone and Saughton</option>
+			<option value="60">Marchmont East and Sciennes</option>
+			<option value="61">Marchmont West</option>
+			<option value="62">Meadowbank and Abbeyhill North</option>
+			<option value="63">Meadows and Southside</option>
+			<option value="64">Merchiston and Greenhill</option>
+			<option value="65">Moredun and Craigour</option>
+			<option value="66">Morningside</option>
+			<option value="67">Morningside and Craighouse</option>
+			<option value="68">Mortonhall and Anwickhill</option>
+			<option value="69">Mountcastle</option>
+			<option value="70">Muirhouse</option>
+			<option value="71">Murrayburn and Wester Hailes North</option>
+			<option value="72">Murrayfield and Ravelston</option>
+			<option value="73">New Town East and Gayfield</option>
+			<option value="74">New Town West</option>
+			<option value="75">Newington and Dalkeith Road</option>
+			<option value="76">Niddrie</option>
+			<option value="77">North Leith and Newhaven</option>
+			<option value="78">Northfield and Piershill</option>
+			<option value="79">Old Town, Princes Street and Leith Street</option>
+			<option value="80">Oxgangs</option>
+			<option value="81">Parkhead and Sighthill</option>
+			<option value="82">Pilrig</option>
+			<option value="83">Polwarth</option>
+			<option value="84">Portobello</option>
+			<option value="85">Prestonfield</option>
+			<option value="86">Restalrig (Loganlea) and Craigentinny West</option>
+			<option value="87">Restalrig and Lochend</option>
+			<option value="88">Shandon</option>
+			<option value="89">Siverknowes and Davidson's Mains</option>
+			<option value="90">Slateford and Chesser</option>
+			<option value="91">South Gyle</option>
+			<option value="92">South Leith</option>
+			<option value="93">Stenhouse and Saughton Mains</option>
+			<option value="94">Stockbridge</option>
+			<option value="95">The Calders</option>
+			<option value="96">The Grange</option>
+			<option value="97">The Inch</option>
+			<option value="98">The Shore and Constitution Street</option>
+			<option value="99">Tollcross</option>
+			<option value="100">Trinity</option>
+			<option value="101">Trinity East and The Dudleys</option>
+			<option value="102">West Pilton</option>
+			<option value="103">Western Harbour and Leith Docks</option>
+			<option value="104">Willowbrae and Duddingston Village</option>
+			</select>
+				
+			
+			<label for="" id="Select_Preference" style="position:absolute;top:15px;width:190px;height:16px;line-height:30px;z-index:3; font-size: 25px; color: #fff; font-family: 'Jura', sans-serif; left:370px; text-align: center;">EDI Sub-Indices Comparison</label>
+
+
+			<label for="" id="Select_Preference" style="position:absolute;top:104px;left:30px;width:116px;height:16px;line-height:16px;z-index:3; font-size: 20px; color: #fff; font-family: 'Darker Grotesque', sans-serif; text-align: center;">Select Preference:</label>
+
+			<div id="g6_RadioButton1" style="position:absolute;left:166px;top:110px;width:20px;height:20px;z-index:15;">
+			<input type="radio" id="Radiochoice" name="Radiochoice" value="Demographic" checked style="position:absolute;left:0;top:0;"><label for="RadioButton1"></label></div>
+			<label for="RadioButton1" id="Demographic_Profile" style="position:absolute;left:190px;top:100px;width:127px;height:16px;line-height:16px;z-index:7; font-size: 20px; color: #fff; font-family: 'Darker Grotesque', sans-serif;">Demographic Profile</label>
+
+			<div id="g6_RadioButton2" style="position:absolute;left:356px;top:110px;width:20px;height:20px;z-index:1;">
+			<input type="radio" id="Radiochoice" name="Radiochoice" value="Environmental" style="position:absolute;left:0;top:0;"><label for="RadioButton2"></label></div>
+			<label for="RadioButton2" id="Environmental_Profile" style="position:absolute;left:385px;top:100px;width:125px;height:16px;line-height:16px;z-index:2; font-size: 20px; color: #fff; font-family: 'Darker Grotesque', sans-serif;">Environmental Profile</label>
+
+			<div id="g6_RadioButton3" style="position:absolute;left:557px;top:110px;width:20px;height:24px;z-index:16;">
+			<input type="radio" id="Radiochoice" name="Radiochoice" value="Tree_Percentage" style="position:absolute;left:0;top:0;"><label for="RadioButton3"></label></div>
+			<label for="RadioButton3" id="Tree_Specific_Profile_" style="position:absolute;left:595px;top:100px;width:120px;height:16px;line-height:16px;z-index:4; font-size: 20px; color: #fff; font-family: 'Darker Grotesque', sans-serif;">Tree Specific Profile </label>
+			<div id="g6_Text2" style="position:absolute;left:590px;top:140px;width:93px;height:12px;z-index:8;">
+			<span style="color:#B8B8B8;font-family:Arial;font-size:11px;"><em>(% of Land Cover)</em></span></div>
+
+			<div id="g6_RadioButton4" style="position:absolute;left:806px;top:110px;width:20px;height:20px;z-index:10;">
+			<input type="radio" id="Radiochoice" name="Radiochoice" value="Tree_Hectare" style="position:absolute;left:0;top:0;"><label for="RadioButton4"></label></div>
+			<label for="RadioButton4" id="Tree_Specific_Profile" style="position:absolute;left:850px;top:100px;width:122px;height:16px;line-height:16px;z-index:5;font-size: 20px; color: #fff; font-family: 'Darker Grotesque', sans-serif;">Tree Specific Profile </label>
+			<div id="g6_Text3" style="position:absolute;left:850px;top:140px;width:93px;height:12px;z-index:9;">
+			<span style="color:#B8B8B8;font-family:Arial;font-size:11px;"><em>(in Hectares)</em></span></div>
+
+			<label for="Zones_Multicombo" id="Search_by_Name" style="position:absolute;left:385px;top:180px;width:180px;height:18px;line-height:16px;z-index:12; font-family: 'Jura', sans-serif; color: #fff; font-size:20px;   text-transform: uppercase;">Search by Name</label>
+			<div id="g6_Text4" style="position:absolute;left:50px;top:235px;width:204px;height:27px;z-index:13;">
+			<span style="color: #B8B8B8; font-family: 'Darker Grotesque', sans-serif;"><em>Note: Multiple selection is possible for comparing different zones</em></span></div>
+			<div id="g6_Text5" style="position:absolute;left:50px;top:289px;width:204px;height:27px;z-index:14;">
+			<span style="color: #B8B8B8; font-family: 'Darker Grotesque', sans-serif;"><em>Use CTRL Key for&nbsp; selecting multiple zones</em></span></div>
+
+			<input type="submit" id="Zones_Submit" name="Zones_Submit" value="Submit" style="position:absolute;left:380px;top:380px;width:96px;height:25px;z-index:11;margin-left:30px;text-align:center;word-spacing:3px;margin-bottom:0px;letter-spacing:1px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 200;
+    text-transform: uppercase;
+	float: center;">
+			</form>
+			</div>
+		<div id="container">
+		
+		<div id="g6_Form_1" style="position:relative;left:100px;top:1300px;width:1050px;height:1000px;z-index:23; background-color: rgba(255,255,255,0.6); border: 1px solid rgba(0,0,0,1);
+    border-radius: 20px;">
+		<form name="Form" method="post" target="EDIFrame1" action="cgi-bin/edipredictaddformatCOPY2_1.py" enctype="multipart/form-data" id="Form">
+		<label for="EDI target" id="Label2" style="position:absolute;left:10px;top:10px;width:68px;height:30px;line-height:16px;z-index:8;">Select Zone</label>
+		<select name="ZONE" size="1" id="ZONE" style="position:absolute;left:10px;top:45px;width:342px;height:28px;z-index:0;">
+		<option selected value="0">Please Select Zone</option>
+		<option value="1">Abbeyhill (EDI: 7)</option>
+		<option value="2">Baberton and Juniper Green (EDI: 9)</option>
+		<option value="3">Balgreen and Roseburn (EDI: 1)</option>
+		<option value="4">Barnton, Cammo and Cramond South (EDI: 9)</option>
+		<option value="5">Bingham, Magdalene and The Christians (EDI: 6)</option>
+		<option value="6">Blackford, West Mains and Mayfield Road (EDI: 5)</option>
+		<option value="7">Blackhall (EDI: 8)</option>
+		<option value="8">Bonaly and The Pentlands (EDI: 9)</option>
+		<option value="9">Bonnington (EDI: 5)</option>
+		<option value="10">Boswall and Pilton (EDI: 3)</option>
+		<option value="11">Broomhouse and Bankhead (EDI: 3)</option>
+		<option value="12">Broughton North and Powderhall (EDI: 5)</option>
+		<option value="13">Broughton South (EDI: 2)</option>
+		<option value="14">Bruntsfield (EDI: 1)</option>
+		<option value="15">Canongate, Southside and Dumbiedykes (EDI: 4)</option>
+		<option value="16">Canonmills and New Town North (EDI: 4)</option>
+		<option value="17">Carrick Knowe (EDI: 3)</option>
+		<option value="18">Clermiston and Drumbrae (EDI: 9)</option>
+		<option value="19">Clovenstone and Wester Hailes (EDI: 5)</option>
+		<option value="20">Colinton and Kingsknowe (EDI: 10)</option>
+		<option value="21">Colinton Mains and Firrhill (EDI: 2)</option>
+		<option value="22">Comely Bank (EDI: 8)</option>
+		<option value="23">Comiston and Swanston (EDI: 3)</option>
+		<option value="24">Corstorphine (EDI: 10)</option>
+		<option value="25">Corstorphine North (EDI: 10)</option>
+		<option value="26">Corstorphine South (EDI: 1)</option>
+		<option value="27">Craigentinny (EDI: 1)</option>
+		<option value="28">Craigleith, Orchard Brae and Crewe Toll (EDI: 2)</option>
+		<option value="29">Craiglockhart (EDI: 7)</option>
+		<option value="30">Craigmillar (EDI: 10)</option>
+		<option value="31">Cramond (EDI: 10)</option>
+		<option value="32">Dalry and Fountainbridge (EDI: 0)</option>
+		<option value="33">Deans Village (EDI: 8)</option>
+		<option value="34">Drylaw (EDI: 4)</option>
+		<option value="35">Duddingston and Portobello South (EDI: 6)</option>
+		<option value="36">East Craigs North (EDI: 6)</option>
+		<option value="37">East Craigs South (EDI: 1)</option>
+		<option value="38">Easter Road and Hawkhill Avenue (EDI: 1)</option>
+		<option value="39">Fairmilehead (EDI: 6)</option>
+		<option value="40">Fernieside and Moredun South (EDI: 3)</option>
+		<option value="41">Gilmerton South and the Murrays (EDI: 6)</option>
+		<option value="42">Gorgie East (EDI: 8)</option>
+		<option value="43">Gorgie West (EDI: 2)</option>
+		<option value="44">Gracemount, Southhouse and Burdiehouse (EDI: 4)</option>
+		<option value="45">Granton and Royston Mains (EDI: 1)</option>
+		<option value="46">Granton South and Wardieburn (EDI: 2)</option>
+		<option value="47">Granton West and Salvesen (EDI: 8)</option>
+		<option value="48">Great Junction Street (EDI: 1)</option>
+		<option value="49">Greenbank and The Braids (EDI: 8)</option>
+		<option value="50">Hillside and Calton Hill (EDI: 8)</option>
+		<option value="51">Hyvots and Gilmerton (EDI: 7)</option>
+		<option value="52">Inverleith, Goldenacre and Warriston (EDI: 9)</option>
+		<option value="53">Jewel, Brunstane and Newcraighall (EDI: 4)</option>
+		<option value="54">Joppa (EDI: 3)</option>
+		<option value="55">Leith (Albert Street) (EDI: 1)</option>
+		<option value="56">Leith (Hermitage and Prospect Bank) (EDI: 1)</option>
+		<option value="57">Liberton East (EDI: 6)</option>
+		<option value="58">Liberton West and Braid Hills (EDI: 7)</option>
+		<option value="59">Longstone and Saughton (EDI: 3)</option>
+		<option value="60">Marchmont East and Sciennes (EDI: 4)</option>
+		<option value="61">Marchmont West (EDI: 3)</option>
+		<option value="62">Meadowbank and Abbeyhill North (EDI: 3)</option>
+		<option value="63">Meadows and Southside (EDI: 6)</option>
+		<option value="64">Merchiston and Greenhill (EDI: 5)</option>
+		<option value="65">Moredun and Craigour (EDI: 2)</option>
+		<option value="66">Morningside (EDI: 6)</option>
+		<option value="67">Morningside and Craighouse (EDI: 10)</option>
+		<option value="68">Mortonhall and Anwickhill (EDI: 9)</option>
+		<option value="69">Mountcastle (EDI: 3)</option>
+		<option value="70">Muirhouse (EDI: 2)</option>
+		<option value="71">Murrayburn and Wester Hailes North (EDI: 6)</option>
+		<option value="72">Murrayfield and Ravelston (EDI: 7)</option>
+		<option value="73">New Town East and Gayfield (EDI: 1)</option>
+		<option value="74">New Town West (EDI: 9)</option>
+		<option value="75">Newington and Dalkeith Road (EDI: 7)</option>
+		<option value="76">Niddrie (EDI: 3)</option>
+		<option value="77">North Leith and Newhaven (EDI: 1)</option>
+		<option value="78">Northfield and Piershill (EDI: 5)</option>
+		<option value="79">Old Town, Princes Street and Leith Street (EDI: 5)</option>
+		<option value="80">Oxgangs (EDI: 2)</option>
+		<option value="81">Parkhead and Sighthill (EDI: 0)</option>
+		<option value="82">Pilrig (EDI: 5)</option>
+		<option value="83">Polwarth (EDI: 6)</option>
+		<option value="84">Portobello (EDI: 1)</option>
+		<option value="85">Prestonfield (EDI: 5)</option>
+		<option value="86">Restalrig (Loganlea) and Craigentinny West (EDI: 4)</option>
+		<option value="87">Restalrig and Lochend (EDI: 1)</option>
+		<option value="88">Shandon (EDI: 5)</option>
+		<option value="89">Siverknowes and Davidson's Mains (EDI: 9)</option>
+		<option value="90">Slateford and Chesser (EDI: 5)</option>
+		<option value="91">South Gyle (EDI: 1)</option>
+		<option value="92">South Leith (EDI: 2)</option>
+		<option value="93">Stenhouse and Saughton Mains (EDI: 5)</option>
+		<option value="94">Stockbridge (EDI: 7)</option>
+		<option value="95">The Calders (EDI: 4)</option>
+		<option value="96">The Grange (EDI: 3)</option>
+		<option value="97">The Inch (EDI: 7)</option>
+		<option value="98">The Shore and Constitution Street (EDI: 0)</option>
+		<option value="99">Tollcross (EDI: 1)</option>
+		<option value="100">Trinity (EDI: 6)</option>
+		<option value="101">Trinity East and The Dudleys (EDI: 8)</option>
+		<option value="102">West Pilton (EDI: 2)</option>
+		<option value="103">Western Harbour and Leith Docks (EDI: 0)</option>
+		<option value="104">Willowbrae and Duddingston Village (EDI: 9)</option>
+		</select>
+		<label for="EDI target" id="Label2" style="position:absolute;left:370px;top:10px;width:100px;height:30px;line-height:16px;z-index:8;">Select EDI Target</label>
+		<select name="EDI" size="1" id="EDI" style="position:absolute;left:370px;top:45px;width:96px;height:28px;z-index:9;">
+		<option selected value="0">Select</option>
+		<option value="1">1</option>
+		<option value="2">2</option>
+		<option value="3">3</option>
+		<option value="4">4</option>
+		<option value="5">5</option>
+		<option value="6">6</option>
+		<option value="7">7</option>
+		<option value="8">8</option>
+		<option value="9">9</option>
+		<option value="10">10</option>
+		</select>
+		<input type="submit" id="Button" name="" value="Submit" style="position:absolute;left:10px;top:80px;width:96px;height:25px;z-index:3;">
+		</form>
+		</div>
+		
+		</div>
+			<iframe name="EDIFrame1" id="EDIFrame1" style="position:absolute;left:200px;top:1700px;width:700px;height:750px;z-index:25;"></iframe>
+			<iframe name="EDIFrame1" id="EDIFrame1" style="position:absolute;left:510px;top:160px;width:600px;height:320px;z-index:25;padding-bottom:200px;padding-top:20px;padding-left:20px;padding-right:20px;" src=""></iframe>
+			<iframe name="ZonesFrame2" id="ZonesFrame2" style="position:absolute;left:170px;top:960px;width:825px;height:310px;z-index:26;" src=""></iframe>
+	
+	</main>
+</body>
+</html>
