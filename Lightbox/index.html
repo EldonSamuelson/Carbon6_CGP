@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Untitled Page</title>
+<link href="Untitled1.css" rel="stylesheet">
+<link href="index.css" rel="stylesheet">
+<script src="jquery-1.12.4.min.js"></script>
+<link rel="stylesheet" href="magnificpopup/magnific-popup.css">
+<script src="magnificpopup/jquery.magnific-popup.min.js"></script>
+<script>
+function displaylightbox(url, options)
+{
+   options.items = { src: url };
+   options.type = 'iframe';
+   $.magnificPopup.open(options);
+}
+</script>
+</head>
+<body>
+<div id="NavigationBar1" style="position:absolute;left:16px;top:58px;width:123px;height:30px;z-index:1;">
+<ul class="navbar">
+<li><a href="javascript:displaylightbox('./page1.html',{})" target="_self"><img alt="" src="images/img0001_over.png" class="hover"><span><img alt="" src="images/img0001.png"></span></a></li>
+</ul>
+</div>
+</body>
+</html>
