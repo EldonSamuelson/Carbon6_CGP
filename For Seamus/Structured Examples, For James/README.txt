@@ -33,3 +33,6 @@ had a width setting at !00% that for some reason was larger than the page. Delet
 
 5-1-21 (version #2-1)
 Referenced correctly to the head background for the DATAPAGE. Updated ZIP to #2-1. Removed #2 as that's literally the only difference.
+
+7-1-21 (version #3)
+A final merging of html templates, CSS, and python files to now include the FORMPAGE, as well as the oracle file and organised as it were in public_html. This will be the version I export into my own public_html before further editing to get the iframe templates correct. In other notes, the iframe has transparent images now (tree,forest,carbon.png)
