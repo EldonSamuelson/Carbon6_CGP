@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+      integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+          crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+      integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+          crossorigin=""></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-ajax/2.1.0/leaflet.ajax.min.js"></script>
+    <link rel="stylesheet" href="legendstyle.css"/>
+
+    <title>Document</title>
+</head>
+
+<body>
+
+<header class="nav-bar">
+
+    <h1 class="logo">
+      <img src="c6.svg" alt="Our team's logo">
+      </a></h1>
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item"><a href="#">EDINBURGH -</a></li>
+            <li class="nav-item"><a href="#"> - PRAGUE - </a></li>
+            <li class="nav-item"><a href="#"> - TOKYO</a></li>
+        </ul>
+
+    </nav>
+
+</header>
+
+<main class="site-content">
+
+    <section class="site-content-section">
+        <article class="site-content-item-1">
+          <p>
+              some content some content some content some content some content some content some content some content some content
+          </p>
+        </article>
+
+        <article class="site-content-item-2">
+
+          <div style="height: 600px;" id="mapid"></div>
+
+          <script>
+            "use strict";
+            // Set custom 'Satellite' icon marker for map
+            var satIcon = L.icon({
+                iconUrl: 'satellite.png',
+                iconSize: [40, 40],
+                iconAnchor: [20, 40],
+                popupAnchor: [0, -20]
+              });
+
+            // Set marker locations and create popups including links to images
+            var corsto = L.marker([55.952372, -3.271666], {icon: satIcon}).bindPopup("<b>Corstophine</b><br><p>Corstophine Park is located at:</p><p>55.952372 Latitude, -3.271666 Longitude</p><center><img src='corst.jpeg' style='width:200px;height:300x;'></center><br><a target='_blank' href='Corstophine.jpg'>Find Out More</a>");
+            var bingham = L.marker([55.940572, -3.124050], {icon: satIcon}).bindPopup("<b>Bingham</b><br><p>Bingham Park is located at:</p><p>55.940572 Latitude, -3.124050 Longitude</p><center><img src='bing.jpeg' style='width:200px;height:300x;'></center><br><a target='_blank' href='Bingham.jpg'>Find Out More</a>");
+            var figgate = L.marker([55.950197, -3.123985], {icon: satIcon}).bindPopup("<b>Figgate Burn</b><br><p>Figgate Burn Park is located at:</p><p>55.950197 Latitude, -3.123985 Longitude</p><center><img src='figg.jpeg' style='width:200px;height:300x;'></center><br><a target='_blank' href='Figgate.jpg'>Find Out More</a>");
+            var saughton = L.marker([55.934725, -3.250063], {icon: satIcon}).bindPopup("<b>Saughton</b><br><p>Saughton Gardens is located at:</p><p>55.934725 Latitude, -3.250063 Longitude</p><center><img src='saugh.jpeg' style='width:200px;height:300x;'></center><br><a target='_blank' href='Saughton.jpg'>Find Out More</a>");
+            var roseburn = L.marker([55.944670, -3.239944], {icon: satIcon}).bindPopup("<b>Roseburn</b><br><p>Roseburn Park is located at:</p><p>55.944670 Latitude, -3.239944 Longitude</p><center><img src='rose.jpeg' style='width:200px;height:300x;'></center><br><a target='_blank' href='Roseburn.jpg'>Find Out More</a>");
+            var pilrig = L.marker([55.968214, -3.181102], {icon: satIcon}).bindPopup("<b>Pilrig</b><br><p>Pilrig Park is located at:</p><p>55.968214 Latitude, -3.181102 Longitude</p><center><img src='pil.jpeg' style='width:200px;height:300x;'></center><br><a target='_blank' href='Pilrig.jpg'>Find Out More</a>");
+
+            // create layer group for fieldwork locations
+            var greenspaces = L.layerGroup([corsto, bingham, figgate, saughton, roseburn, pilrig]);
+
+            // create new GeoJSON layer
+            new L.GeoJSON.AJAX('gj_1.geojson');
+
+            //Set EDI rank and colours
+      			function edicolor(d) {
+      				if(d == 10) return "#313695"; else
+      				if(d == 9) return "#4575b4"; else
+      				if(d == 8) return "#74add1"; else
+      				if(d == 7) return "#abd9e9"; else
+      				if(d == 6) return "#e0f3f8"; else
+      				if(d == 5) return "#fee090"; else
+      				if(d == 4) return "#fdae61"; else
+      				if(d == 3) return "#f46d43"; else
+      				if(d == 2) return "#d73027"; else
+      				if(d == 1) return "#a50026"; else
+      				if(d == 0) return "#67001f"; else
+      					return "rgba(1,0,0,1)";
+                  }
+
+              // layer styling
+      			 function edistyle(feature) {
+      				return {
+      					fillColor: edicolor(feature.properties.EDIRANK),
+      					fillOpacity: 0.6,
+      					weight: 0.4,
+      					opacity: 1,
+      					color: "black"
+      				};
+      			 }
+
+             // Filter properties of GeoJSON and assign to layer
+            var edilayer = new L.GeoJSON.AJAX('gj_1.geojson', {filter: edirank, style: edistyle});
+            function edirank(feature, properties) {
+              return (feature.properties.EDIRANK)
+            };
+
+            // Create legend for layer
+            var edilegend = L.control({position: 'bottomright'});
+
+            edilegend.onAdd = function (map) {
+                // Set grades and labels for legend
+                var div = L.DomUtil.create('div', 'info legend'),
+                    edigrades = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                    edilabels = ['EDI Rank 0', 'EDI Rank 1', 'EDI Rank 2', 'EDI Rank 3', 'EDI Rank 4', 'EDI Rank 5', 'EDI Rank 6', 'EDI Rank 7', 'EDI Rank 8', 'EDI Rank 9', 'EDI Rank 10'];
+
+                // For loop to set colours and labels for legend
+                for (var i = 0; i < edigrades.length; i++) {
+                    div.innerHTML +=
+                        '<i style="background:' + edicolor(edigrades[i]) + '"></i> ' +
+                                    edilabels[i] + '<br>';
+                }
+                return div;
+            };
+
+                // Set Tree Density rank and colours
+        			  function treedenscolor(th) {
+        				if(th > 10) return "#00441b"; else
+        				if(th > 8) return "#1b7837"; else
+        				if(th > 6) return "#5aae61"; else
+        				if(th > 5) return "#a6dba0"; else
+        				if(th > 4) return "#d9f0d3"; else
+        				if(th > 3) return "#f7f7f7"; else
+        				if(th > 2.5) return "#e7d4e8"; else
+        				if(th > 2) return "#c2a5cf"; else
+        				if(th > 1) return "#9970ab"; else
+        				if(th > 0) return "#762a83"; else
+        					return "rgba(64,0,75,1)";
+                    }
+
+                // layer styling
+        			   function treedensstyle(feature) {
+        				return {
+        					fillColor: treedenscolor(feature.properties.TREESPERHA),
+        					fillOpacity: 0.9,
+        					weight: 0.3,
+        					opacity: 1,
+        					color: "black"
+        				};
+        			 }
+
+              // Filter properties of GeoJSON and assign to layer
+        			var treedensity = new L.GeoJSON.AJAX('gj_1.geojson', {filter: treedens, style :treedensstyle});
+                    function treedens(feature, properties) {
+                      return (feature.properties.TREESPERHA)
+                    };
+
+              // Create legend for layer
+              var treedenlegend = L.control({position: 'bottomright'});
+
+              treedenlegend.onAdd = function (map) {
+                        // Set grades and labels for legend
+                        var div = L.DomUtil.create('div', 'info legend'),
+                            treedengrades = [0, 1, 2, 2.5, 3, 4, 5, 6, 8, 10],
+                            treedenlabels = ['Tree Density of Areas 0-1', 'Tree Density of Areas 1-2', 'Tree Density of Areas 2-2.5', 'Tree Density of Areas 2.5-3', 'Tree Density of Areas 3-4', 'Tree Density of Areas 4-5', 'Tree Density of Areas 5-6', 'Tree Density of Areas 6-7', 'Tree Density of Areas 8-10', 'Tree Density of Areas >10'];
+
+                        // For loop to set colours and labels for legend
+                        for (var i = 0; i < treedengrades.length; i++) {
+                            div.innerHTML +=
+                                '<i style="background:' + treedenscolor(treedengrades[i]) + '"></i> ' +
+                                            treedenlabels[i] + '<br>';
+                        }
+
+                        return div;
+                };
+
+        			 //juveniles trees per hectare
+        			  function juvdenscolor(jh) {
+        				if(jh > 1.5) return "#662506"; else
+        				if(jh > 1) return "#993404"; else
+        				if(jh > 0.8) return "#cc4c02"; else
+        				if(jh > 0.6) return "#ec7014"; else
+        				if(jh > 0.45) return "#fe9929"; else
+        				if(jh > 0.35) return "#fec44f"; else
+        				if(jh > 0.25) return "#fee391"; else
+        				if(jh > 0.15) return "#fff7bc"; else
+        				if(jh > 0.08) return "#f7fcb9"; else
+        				if(jh > 0) return "#addd8e"; else
+        					return "rgba(65,171,93,1)";
+                    }
+
+        			   function juvdensstyle(feature) {
+        				return {
+        					fillColor: juvdenscolor(feature.properties.JUVPERHA),
+        					fillOpacity: 0.8,
+        					weight: 0.4,
+        					opacity: 1,
+        					color: "black"
+        				};
+        			 }
+        			var juvperhec = new L.GeoJSON.AJAX('gj_1.geojson', {filter: juvdens, style: juvdensstyle});
+
+                    function juvdens(feature, properties) {
+                      return (feature.properties.JUVPERHA)
+                    };
+
+              var juvdenlegend = L.control({position: 'bottomright'});
+
+              juvdenlegend.onAdd = function (map) {
+
+                        var div = L.DomUtil.create('div', 'info legend'),
+                            juvdengrades = [0, 0.08, 0.15, 0.25, 0.35, 0.45, 0.6, 0.8, 1, 1.5],
+                            juvdenlabels = ['Juvunile Trees Per Hectare 0.00-0.08', 'Juvunile Trees Per Hectare 0.08-0.15', 'Juvunile Trees Per Hectare 0.15-0.25', 'Juvunile Trees Per Hectare 0.25-0.35', 'Juvunile Trees Per Hectare 0.35-0.45', 'Juvunile Trees Per Hectare 0.45-0.60', 'Juvunile Trees Per Hectare 0.60-0.80', 'Juvunile Trees Per Hectare 0.80-1.00', 'Juvunile Trees Per Hectare 1.00-1.50', 'Juvunile Trees Per Hectare >1.50'];
+
+                        for (var i = 0; i < juvdengrades.length; i++) {
+                            div.innerHTML +=
+                                '<i style="background:' + juvdenscolor(juvdengrades[i]) + '"></i> ' +
+                                            juvdenlabels[i] + '<br>';
+                        }
+
+                        return div;
+              };
+
+        			  //species per tree
+        			    function specdivcolor(jh) {
+        				if(jh > 0.3) return "#014636"; else
+        				if(jh > 0.25) return "#016c59"; else
+        				if(jh > 0.2) return "#02818a"; else
+        				if(jh > 0.15) return "#3690c0"; else
+        				if(jh > 0.13) return "#67a9cf"; else
+        				if(jh > 0.11) return "#a6bddb"; else
+        				if(jh > 0.09) return "#d0d1e6"; else
+        				if(jh > 0.07) return "#ece2f0"; else
+        				if(jh > 0.05) return "#fff7fb"; else
+        					return "rgba(0,0, 0,0)";
+                    }
+
+        			   function specdivstyle(feature) {
+        				return {
+        					fillColor: specdivcolor(feature.properties.SPECIESPERTREE),
+        					fillOpacity: 0.7,
+        					weight: 1.5,
+        					opacity: 1,
+        					color: "black"
+        				};
+        			 }
+        			var speciesdiversity = new L.GeoJSON.AJAX('gj_1.geojson', {filter: specdiv, style: specdivstyle});
+
+                    function specdiv(feature, properties) {
+                      return (feature.properties.SPECIESPERTREE)
+                    };
+
+              var specdivlegend = L.control({position: 'bottomright'});
+
+              specdivlegend.onAdd = function (map) {
+
+                        var div = L.DomUtil.create('div', 'info legend'),
+                            specdivgrades = [0.05, 0.07, 0.09, 0.11, 0.13, 0.15, 0.2, 0.25, 0.3],
+                            specdivlabels = ['Tree Species Diversity 0.05-0.07', 'Tree Species Diversity 0.07-0.09', 'Tree Species Diversity 0.09-0.11', 'Tree Species Diversity 0.11-0.13', 'Tree Species Diversity 0.13-0.15', 'Tree Species Diversity 0.15-0.20', 'Tree Species Diversity 0.20-0.25', 'Tree Species Diversity 0.25-0.30', 'Tree Species Diversity >0.30'];
+
+                        for (var i = 0; i < specdivgrades.length; i++) {
+                            div.innerHTML +=
+                                '<i style="background:' + specdivcolor(specdivgrades[i]) + '"></i> ' +
+                                            specdivlabels[i] + '<br>';
+                        }
+
+                        return div;
+              };
+
+        			  //high carbon
+        			function highcarbcolor(cb) {
+        				if(cb > 15) return "#1a1a1a"; else
+        				if(cb > 8) return "#4d4d4d"; else
+        				if(cb >  4) return "#878787"; else
+        				if(cb >  3) return "#bababa"; else
+        			  if(cb >  2) return "#e0e0e0"; else
+        				if(cb >  1) return "#ffffff"; else
+        				if(cb >  0.6) return "#fddbc7"; else
+        				if(cb >  0.4) return "#f4a582"; else
+        				if(cb >  0.2) return "#d6604d"; else
+        				if(cb >  0.1) return "#b2182b"; else
+        				if(cb >  0.05) return "#67001f"; else
+        					return "rgba(1,0,0,1)";
+                    }
+
+        			 function highcarbstyle(feature) {
+        				return {
+        					fillColor: highcarbcolor(feature.properties.PERCHIGH),
+        					fillOpacity: 0.9,
+        					weight: 1,
+        					opacity: 1,
+        					color: "black"
+        				};
+        			 }
+
+        			var perchighcarb = new L.GeoJSON.AJAX('gj_1.geojson', {filter: highcarbonperc, style: highcarbstyle});
+
+                    function highcarbonperc(feature, properties) {
+                      return (feature.properties.PERCHIGH)
+                    };
+
+              var highcarblegend = L.control({position: 'bottomright'});
+
+              highcarblegend.onAdd = function (map) {
+
+                        var div = L.DomUtil.create('div', 'info legend'),
+                            highcarbgrades = [0.05, 0.1, 0.2, 0.4, 0.6, 1, 2, 3, 4, 8, 15],
+                            highcarblabels = ['High Level Carbon % 0.05-0.10', 'High Level Carbon % 0.10-0.20', 'High Level Carbon % 0.20-0.40', 'High Level Carbon % 0.40-0.60', 'High Level Carbon % 0.60-1.00', 'High Level Carbon % 1.00-2.00', 'High Level Carbon % 2.00-3.00', 'High Level Carbon % 3.00-4.00', 'High Level Carbon % 4.00-8.00', 'High Level Carbon % 8.00-15.00', 'High Level Carbon % >15.00'];
+
+                        for (var i = 0; i < highcarbgrades.length; i++) {
+                            div.innerHTML +=
+                                '<i style="background:' + highcarbcolor(highcarbgrades[i]) + '"></i> ' +
+                                            highcarblabels[i] + '<br>';
+                        }
+
+                        return div;
+              };
+
+        			 //medium carbon
+        			  function medcarbcolor(mcb) {
+        				if(mcb > 22) return "#1a1a1a"; else
+        				if(mcb > 20) return "#4d4d4d"; else
+        				if(mcb >  18) return "#878787"; else
+        				if(mcb >  16) return "#bababa"; else
+        			  if(mcb >  14) return "#e0e0e0"; else
+        				if(mcb >  12) return "#ffffff"; else
+        				if(mcb >  10) return "#fddbc7"; else
+        				if(mcb >  8) return "#f4a582"; else
+        				if(mcb >  6) return "#d6604d"; else
+        				if(mcb >  0) return "#b2182b"; else
+        					return "rgba(1,0,0,1)";
+                    }
+
+        			 function medcarbstyle(feature) {
+        				return {
+        					fillColor: medcarbcolor(feature.properties.PERCMED),
+        					fillOpacity: 0.9,
+        					weight: 1,
+        					opacity: 1,
+        					color: "black"
+        				};
+        			 }
+
+        			var permedcarb = new L.GeoJSON.AJAX('gj_1.geojson', {filter: medcarbonperc, style: medcarbstyle});
+
+                    function medcarbonperc(feature, properties) {
+                      return (feature.properties.PERCMED)
+                    };
+
+              var medcarblegend = L.control({position: 'bottomright'});
+
+              medcarblegend.onAdd = function (map) {
+
+                        var div = L.DomUtil.create('div', 'info legend'),
+                            medcarbgrades = [0, 6, 8, 10, 12, 14, 16, 18, 20, 22],
+                            medcarblabels = ['Medium Level Carbon % 0.00-6.00', 'Medium Level Carbon % 6.00-8.00', 'Medium Level Carbon % 8.00-10.00', 'Medium Level Carbon % 10.00-12.00', 'Medium Level Carbon % 12.00-14.00', 'Medium Level Carbon % 14.00-16.00', 'Medium Level Carbon % 16.00-18.00', 'Medium Level Carbon % 18.00-20.00', 'Medium Level Carbon % 20.00-22.00', 'Medium Level Carbon % >22.00'];
+
+                        for (var i = 0; i < medcarbgrades.length; i++) {
+                            div.innerHTML +=
+                                '<i style="background:' + medcarbcolor(medcarbgrades[i]) + '"></i> ' +
+                                            medcarblabels[i] + '<br>';
+                        }
+
+                        return div;
+              };
+
+        			  //nfi percentage coverage
+        			   function nfipercolor(nfip) {
+        				if(nfip > 22) return "#3f007d"; else
+        				if(nfip > 20) return "#54278f"; else
+        				if(nfip >  18) return "#6a51a3"; else
+        				if(nfip >  16) return "#807dba"; else
+        			  if(nfip >  14) return "#9e9ac8"; else
+        				if(nfip >  12) return "#bcbddc"; else
+        				if(nfip >  10) return "#dadaeb"; else
+        				if(nfip >  8) return "#efedf5"; else
+        				if(nfip >  6) return "#e2e1e3"; else
+        				if(nfip >  0) return "#fcfbfd"; else
+        					return "rgba(1,0,0,1)";
+                    }
+
+        			 function nfiperstyle(feature) {
+        				return {
+        					fillColor: nfipercolor(feature.properties.NFIPERC),
+        					fillOpacity: 0.9,
+        					weight: 1,
+        					opacity: 1,
+        					color: "black"
+        				};
+        			 }
+        			var nfinvperc = new L.GeoJSON.AJAX('gj_1.geojson', {filter: nfiper, style: nfiperstyle});
+
+                    function nfiper(feature, properties) {
+                      return (feature.properties.NFIPERC)
+                    };
+
+              var nfiperlegend = L.control({position: 'bottomright'});
+
+              nfiperlegend.onAdd = function (map) {
+
+                        var div = L.DomUtil.create('div', 'info legend'),
+                            nfipergrades = [0, 6, 8, 10, 12, 14, 16, 18, 20, 22],
+                            nfiperlabels = ['NFI Percentage Coverage 0-6', 'NFI Percentage Coverage 6-8', 'NFI Percentage Coverage 8-10', 'NFI Percentage Coverage 10-12', 'NFI Percentage Coverage 12-14', 'NFI Percentage Coverage 14-16', 'NFI Percentage Coverage 16-18', 'NFI Percentage Coverage 18-20', 'NFI Percentage Coverage 20-22', 'NFI Percentage Coverage >22'];
+
+                        for (var i = 0; i < nfipergrades.length; i++) {
+                            div.innerHTML +=
+                                '<i style="background:' + nfipercolor(nfipergrades[i]) + '"></i> ' +
+                                            nfiperlabels[i] + '<br>';
+                        }
+
+                        return div;
+              };
+
+        			  //human population density
+        			  	   function popdenscolor(popd) {
+        				if(popd > 150) return "#49006a"; else
+        				if(popd > 100) return "#7a0177"; else
+        				if(popd >  85) return "#ae017e"; else
+        				if(popd >  70) return "#dd3497"; else
+        			  if(popd >  60) return "#f768a1"; else
+        				if(popd >  50) return "#fa9fb5"; else
+        				if(popd >  40) return "#fcc5c0"; else
+        				if(popd > 30) return "#fde0dd"; else
+        				if(popd >  20) return "#fff7f3"; else
+        				if(popd >  0) return "#ffffff"; else
+        					return "rgba(1,0,0,1)";
+                    }
+
+        			 function popdenstyle(feature) {
+        				return {
+        					fillColor: popdenscolor(feature.properties.POPPERHA),
+        					fillOpacity: 0.9,
+        					weight: 0.7,
+        					opacity: 1,
+        					color: "white"
+        				};
+        			 }
+        			  var popdens = new L.GeoJSON.AJAX('gj_1.geojson', {filter: popden, style: popdenstyle});
+
+                    function popden(feature, properties) {
+                      return (feature.properties.POPPERHA)
+                    };
+
+                var popdenslegend = L.control({position: 'bottomright'});
+
+                popdenslegend.onAdd = function (map) {
+
+                        var div = L.DomUtil.create('div', 'info legend'),
+                            popdensgrades = [0, 20, 30, 40, 50, 60, 70, 85, 100, 150],
+                            popdenslabels = ['Population Density 0-20', 'Population Density 20-30', 'Population Density 30-40', 'Population Density 40-50', 'Population Density 50-60', 'Population Density 60-70', 'Population Density 70-80', 'Population Density 85-100', 'Population Density 100-150', 'Population Density >150'];
+
+                        for (var i = 0; i < popdensgrades.length; i++) {
+                            div.innerHTML +=
+                                '<i style="background:' + popdenscolor(popdensgrades[i]) + '"></i> ' +
+                                            popdenslabels[i] + '<br>';
+                        }
+
+                        return div;
+                };
+
+        			  //tree count total
+        			   function treetotcolor(trt) {
+        				if(trt > 800) return "#014636"; else
+        				if(trt > 600) return "#016c59"; else
+        				if(trt >  400) return "#02818a"; else
+        				if(trt >  300) return "#3690c0"; else
+        			  if(trt >  200) return "#67a9cf"; else
+        				if(trt >  150) return "#a6bddb"; else
+        				if(trt >  120) return "#d0d1e6"; else
+        				if(trt > 100) return "#ece2f0"; else
+        				if(trt >  50) return "#fff7fb"; else
+        				if(trt >  0) return "#ffffff"; else
+        					return "rgba(1,0,0,1)";
+                    }
+
+        			 function treetotstyle(feature) {
+        				return {
+        					fillColor: treetotcolor(feature.properties.TREECOUNT),
+        					fillOpacity: 0.7,
+        					weight: 2,
+        					opacity: 1,
+        					color: "black"
+        				};
+        			 }
+
+        			var treecount = new L.GeoJSON.AJAX('gj_1.geojson', {filter: treesnum, style: treetotstyle});
+
+                    function treesnum(feature, properties) {
+                      return (feature.properties.TREECOUNT)
+                    };
+
+              var treetotlegend = L.control({position: 'bottomright'});
+
+              treetotlegend.onAdd = function (map) {
+
+                        var div = L.DomUtil.create('div', 'info legend'),
+                            treetotgrades = [0, 50, 100, 120, 150, 200, 300, 400, 600, 800],
+                            treetotlabels = ['Tree Count 0-50', 'Tree Count 50-100', 'Tree Count 100-120', 'Tree Count 120-150', 'Tree Count 150-200', 'Tree Count 200-300', 'Tree Count 300-400', 'Tree Count 400-600', 'Tree Count 600-800', 'Tree Count >800'];
+
+                        for (var i = 0; i < treetotgrades.length; i++) {
+                            div.innerHTML +=
+                                '<i style="background:' + treetotcolor(treetotgrades[i]) + '"></i> ' +
+                                            treetotlabels[i] + '<br>';
+                        }
+
+                        return div;
+              };
+
+        			  //nfi percentage change
+        			  function nfichngcolor(nfc) {
+        				if(nfc > 2) return "#31a354"; else
+        				if(nfc > 1) return "#a1d99b"; else
+        				if(nfc > 0) return "#31a354"; else
+        				if(nfc == 0) return "rgba(0,0,0,0)"; else
+        			  if(nfc > -0.1) return "#fef0d9"; else
+        				if(nfc > -0.3) return "#fdd49e"; else
+        				if(nfc > -0.6) return "#fdbb84"; else
+        				if(nfc > -1) return "#fc8d59"; else
+        				if(nfc > -3) return "#ef6548"; else
+        				if(nfc > -6) return "#d7301f"; else
+        				if(nfc > -10) return "#990000"; else
+        					return "#9e0142";
+                    }
+
+        			 function nfichngstyle(feature) {
+        				return {
+        					fillColor: nfichngcolor(feature.properties.NFIChange),
+        					fillOpacity: 1,
+        					weight: 0.5,
+        					opacity: 1,
+        					color: "white"
+        				};
+        			 }
+        			var nfichng = new L.GeoJSON.AJAX('gj_1.geojson', {filter: nficha, style: nfichngstyle});
+
+                    function nficha(feature, properties) {
+                      return (feature.properties.NFIChange)
+                    };
+
+              var nfichnglegend = L.control({position: 'bottomright'});
+
+              nfichnglegend.onAdd = function (map) {
+
+                        var div = L.DomUtil.create('div', 'info legend'),
+                            nfichnggrades = [-10, -6, -3, -1, -0.6, -0.3, -0.1, 0, 1, 2],
+                            nfichnglabels = ['NFI Percentage Area Change -10.00--6.00', 'NFI Percentage Area Change -6.00--3.00', 'NFI Percentage Area Change -3.00--1.00', 'NFI Percentage Area Change -1.00--0.60', 'NFI Percentage Area Change -0.60--0.30', 'NFI Percentage Area Change -0.30--0.10', 'NFI Percentage Area Change -0.10-0.00', 'NFI Percentage Area Change 0.00-1.00', 'NFI Percentage Area Change 1.00-2.00', 'NFI Percentage Area Change >2.00'];
+
+                        for (var i = 0; i < nfichnggrades.length; i++) {
+                            div.innerHTML +=
+                                '<i style="background:' + nfichngcolor(nfichnggrades[i]) + '"></i> ' +
+                                            nfichnglabels[i] + '<br>';
+                        }
+
+                        return div;
+              };
+
+        			  //diameter at breast height
+        			    function dbhcolor(dbh) {
+        				if(dbh > 47) return "#543005"; else
+        				if(dbh > 41) return "#8c510a"; else
+        				if(dbh > 36) return "#bf812d"; else
+        				if(dbh > 32) return "#dfc27d"; else
+        			  if(dbh > 30) return "#f6e8c3"; else
+        				if(dbh > 28) return "#f5f5f5"; else
+        				if(dbh > 26) return "#c7eae5"; else
+        				if(dbh > 24) return "#80cdc1"; else
+        				if(dbh > 22) return "#35978f"; else
+        				if(dbh > 10) return "#01665e"; else
+        				if(dbh > 0) return "#003c30"; else
+        					return "rgba(0,0,0,0)";
+                    }
+
+        			 function dbhstyle(feature) {
+        				return {
+        					fillColor: dbhcolor(feature.properties.MEANDBH),
+        					fillOpacity: 0.7,
+        					weight: 1,
+        					opacity: 1,
+        					color: "white"
+        				};
+        			 }
+
+                    var dbhrank = new L.GeoJSON.AJAX('gj_1.geojson', {filter: dbhval, style: dbhstyle});
+
+                    function dbhval(feature, properties) {
+                      return (feature.properties.MEANDBH)
+                    };
+
+                    var dbhlegend = L.control({position: 'bottomright'});
+
+                    dbhlegend.onAdd = function (map) {
+
+                        var div = L.DomUtil.create('div', 'info legend'),
+                            dbhgrades = [0, 10, 22, 24, 26, 28, 30, 32, 36, 41, 47],
+                            dbhlabels = ['DBH Average (cm) 0-10', 'DBH Average (cm) 10-22', 'DBH Average (cm) 22-24', 'DBH Average (cm) 24-26', 'DBH Average (cm) 26-28', 'DBH Average (cm) 28-30', 'DBH Average (cm) 30-32', 'DBH Average (cm) 32-36', 'DBH Average (cm) 36-41', 'DBH Average (cm) 41-47', 'DBH Average (cm) >47'];
+
+                        for (var i = 0; i < dbhgrades.length; i++) {
+                            div.innerHTML +=
+                                '<i style="background:' + dbhcolor(dbhgrades[i]) + '"></i> ' +
+                                            dbhlabels[i] + '<br>';
+                        }
+
+                        return div;
+                    };
+
+        			  //tree species number total
+        			  	    function tspeciescolor(ts) {
+        				if(ts > 60) return "#084081"; else
+        				if(ts > 50) return "#0868ac"; else
+        				if(ts > 40) return "#c7eae5"; else
+        				if(ts > 35) return "#f5f5f5"; else
+        			  if(ts > 30) return "#f6e8c3"; else
+        				if(ts > 25) return "#dfc27d"; else
+        				if(ts > 20) return "#bf812d"; else
+        				if(ts > 10) return "#8c510a"; else
+        				if(ts > 5) return "#543005"; else
+        					return "rgba(0,0,0,0)";
+                    }
+
+        			 function tspeciesstyle(feature) {
+        				return {
+        					fillColor: tspeciescolor(feature.properties.SPECIES),
+        					fillOpacity: 0.8,
+        					weight: 1,
+        					opacity: 1,
+        					color: "white"
+        				};
+        			 }
+
+                    var speciesnum = new L.GeoJSON.AJAX('gj_1.geojson', {filter: speciesval, style: tspeciesstyle});
+
+                    function speciesval(feature, properties) {
+                      return (feature.properties.SPECIES)
+                    };
+
+                    var speciesnumlegend = L.control({position: 'bottomright'});
+
+                    speciesnumlegend.onAdd = function (map) {
+
+                        var div = L.DomUtil.create('div', 'info legend'),
+                            speciesnumgrades = [5, 10, 20, 25, 30, 35, 40, 50, 60],
+                            speciesnumlabels = ['Tree Species Total 5-10', 'Tree Species Total 10-20', 'Tree Species Total 20-25', 'Tree Species Total 25-30', 'Tree Species Total 30-35', 'Tree Species Total 35-40', 'Tree Species Total 40-50', 'Tree Species Total 50-60', 'Tree Species Total >60'];
+
+                        for (var i = 0; i < speciesnumgrades.length; i++) {
+                            div.innerHTML +=
+                                '<i style="background:' + tspeciescolor(speciesnumgrades[i]) + '"></i> ' +
+                                            speciesnumlabels[i] + '<br>';
+                        }
+
+                        return div;
+                    };
+
+                        //openspace audit
+                			 function OSAstyle(feature) {
+              				    return {
+                					fillColor: "#e5f5e0",
+                					fillOpacity: 0.9,
+                					weight: 1,
+                					opacity: 1,
+                					color: "white"
+                				};
+                			 }
+                			var OSA = new L.GeoJSON.AJAX('OSA2016.geojson', {style: OSAstyle});
+
+                      var osalegend = L.control({position: 'bottomright'});
+
+                      osalegend.onAdd = function (map) {
+                        var div = L.DomUtil.create("div", "legend");
+                        div.innerHTML += '<i style="background: #e5f5e0"></i><span>Openspace Audit</span><br>';
+                          return div;
+                      };
+
+                			 //NFI
+               			  function NFIstyle(feature) {
+                				return {
+                					fillColor: "#41b6c4",
+                					fillOpacity: 0.9,
+                					weight: 1,
+                					opacity: 1,
+                					color: "white"
+                				};
+                			 }
+
+                			var NFI = new L.GeoJSON.AJAX('NFI11-18.geojson', {style: NFIstyle});
+
+                      var nfilegend = L.control({position: 'bottomright'});
+
+                      nfilegend.onAdd = function (map) {
+                        var div = L.DomUtil.create("div", "legend");
+                        div.innerHTML += '<i style="background: #41b6c4"></i><span>National Forest Inventory</span><br>';
+                            return div;
+                        };
+
+                      //TPO
+              			  function TPOstyle(feature) {
+                				return {
+                					fillColor: "#00441b",
+                					fillOpacity: 0.9,
+                					weight: 1,
+                					opacity: 1,
+                					color: "white"
+                				};
+                			 }
+                			var TPO = new L.GeoJSON.AJAX('treepr.GEO', {style: TPOstyle});
+
+                      var tpolegend = L.control({position: 'bottomright'});
+
+                      tpolegend.onAdd = function (map) {
+                        var div = L.DomUtil.create("div", "legend");
+                        div.innerHTML += '<i style="background: #00441b"></i><span>Tree Preservation Orders</span><br>';
+                          return div;
+                        };
+
+                			  //Special Landscapes
+              			  function SPECLAstyle(feature) {
+                				return {
+                					fillColor: "#696969",
+                					fillOpacity: 0.9,
+                					weight: 4,
+                					opacity: 1,
+                					color: "#B22222"
+                				};
+                			 }
+                			var PAPSPECLA = new L.GeoJSON.AJAX('PAP_SPECLA.GEO', {style: SPECLAstyle});
+
+                      var speclanlegend = L.control({position: 'bottomright'});
+
+                      speclanlegend.onAdd = function (map) {
+                        var div = L.DomUtil.create("div", "legend");
+                        div.innerHTML += '<i style="background: #696969"></i><span>Special Landscapes</span><br>';
+                          return div;
+                        };
+
+                			  //Green Belt
+            			    function GBstyle(feature) {
+                				return {
+                					fillColor: "#006d2c",
+                					fillOpacity: 0.6,
+                					weight: 2,
+                					opacity: 1,
+                					color: "#08519c"
+                				};
+                			 }
+
+                			var PAPGB = new L.GeoJSON.AJAX('PAP_GreenBelt.geojson', {style: GBstyle});
+
+                      var greenbeltlegend = L.control({position: 'bottomright'});
+
+                      greenbeltlegend.onAdd = function (map) {
+                        var div = L.DomUtil.create("div", "legend");
+                        div.innerHTML += '<i style="background: #006d2c"></i><span>Green Belt</span><br>';
+                          return div;
+                        };
+
+                			  //Conservation Areas
+            			    function CAstyle(feature) {
+                				return {
+                					fillColor: "#004529",
+                					fillOpacity: 0.6,
+                					weight: 2,
+                					opacity: 1,
+                					color: "#f7fcb9"
+                				};
+                			 }
+                			var PAP_CA = new L.GeoJSON.AJAX('PAP_ConserveAreas.geojson', {style: CAstyle});
+
+                      var conslegend = L.control({position: 'bottomright'});
+
+                      conslegend.onAdd = function (map) {
+                        var div = L.DomUtil.create("div", "legend");
+                        div.innerHTML += '<i style="background: #004529"></i><span>Historic Conservation Areas</span><br>';
+                          return div;
+                        };
+
+            var light = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}{r}.{ext}', {
+	               attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+	               subdomains: 'abcd',
+	               minZoom: 0,
+	               maxZoom: 20,
+	               ext: 'png'
+               });
+
+            var dark = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+	               attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+	               subdomains: 'abcd',
+	               maxZoom: 19
+               });
+
+            var map = L.map('mapid', {
+                 center: [55.942856, -3.192119],
+                 zoom: 12,
+                 layers: [light, greenspaces]
+               });
+
+              // Assign basemap layer groups
+            var baseMaps = {
+                "Light": light,
+                "Dark": dark
+              };
+
+              // Assign overlay layer groups
+            var overlayMaps = {
+                "Greenspaces": greenspaces,
+                "EDI Rank": edilayer,
+                "Tree Count": treecount,
+                "DBH Average": dbhrank,
+                "Species Count": speciesnum,
+         				"Tree Density of Area": treedensity,
+         				"Juvenile Tree Density of Area": juvperhec,
+         				"Tree Species Diversity": speciesdiversity,
+         				"High Level Carbon Sequestering Area": perchighcarb,
+         				"Medium Level Carbon Sequestering Area": permedcarb,
+         				"NFInventory Area Change": nfichng,
+         				"Human Population Density": popdens,
+         				"NFInventory Woodland % Coverage": nfinvperc,
+         				"Open Space Audit": OSA,
+         				"National Forest Inventory Areas": NFI,
+         				"Tree Preservation Orders": TPO,
+         				"Special Landscapes": PAPSPECLA,
+         				"Green Belt": PAPGB,
+         				"Historic Conservation Areas": PAP_CA
+              };
+
+              // Create layer control
+            L.control.layers(baseMaps).addTo(map);
+            L.control.layers(overlayMaps).addTo(map);
+
+            // Assign /Remove legends to overlay layers
+            map.on('baselayerchange', function (eventLayer) {
+              if (eventLayer.name === 'Greenspaces') {
+                  this.removeControl(treetotlegend);
+                  this.removeControl(dbhlegend);
+                  this.removeControl(speciesnumlegend);
+                  this.removeControl(treedenlegend);
+                  this.removeControl(juvdenlegend);
+                  this.removeControl(specdivlegend);
+                  this.removeControl(nfichnglegend);
+                  this.removeControl(highcarblegend);
+                  this.removeControl(medcarblegend);
+                  this.removeControl(popdenslegend);
+                  this.removeControl(nfiperlegend);
+                  this.removeControl(osalegend);
+                  this.removeControl(nfilegend);
+                  this.removeControl(speclanlegend);
+                  this.removeControl(tpolegend);
+                  this.removeControl(greenbeltlegend);
+                  this.removeControl(conslegend);
+                }
+              if (eventLayer.name === 'EDI Rank') {
+                  this.removeControl(treetotlegend);
+                  this.removeControl(dbhlegend);
+                  this.removeControl(speciesnumlegend);
+                  this.removeControl(treedenlegend);
+                  this.removeControl(juvdenlegend);
+                  this.removeControl(specdivlegend);
+                  this.removeControl(nfichnglegend);
+                  this.removeControl(highcarblegend);
+                  this.removeControl(medcarblegend);
+                  this.removeControl(popdenslegend);
+                  this.removeControl(nfiperlegend);
+                  this.removeControl(osalegend);
+                  this.removeControl(nfilegend);
+                  this.removeControl(speclanlegend);
+                  this.removeControl(tpolegend);
+                  this.removeControl(greenbeltlegend);
+                  this.removeControl(conslegend);
+                  edilegend.addTo(this);
+                }
+              if (eventLayer.name === 'Tree Count') {
+                  this.removeControl(edilegend);
+                  this.removeControl(dbhlegend);
+                  this.removeControl(speciesnumlegend);
+                  this.removeControl(treedenlegend);
+                  this.removeControl(juvdenlegend);
+                  this.removeControl(specdivlegend);
+                  this.removeControl(nfichnglegend);
+                  this.removeControl(highcarblegend);
+                  this.removeControl(medcarblegend);
+                  this.removeControl(popdenslegend);
+                  this.removeControl(nfiperlegend);
+                  this.removeControl(osalegend);
+                  this.removeControl(nfilegend);
+                  this.removeControl(speclanlegend);
+                  this.removeControl(tpolegend);
+                  this.removeControl(greenbeltlegend);
+                  this.removeControl(conslegend);
+                  treetotlegend.addTo(this);
+                }
+              if (eventLayer.name === 'DBH Average') {
+                  this.removeControl(edilegend);
+                  this.removeControl(treetotlegend);
+                  this.removeControl(speciesnumlegend);
+                  this.removeControl(treedenlegend);
+                  this.removeControl(juvdenlegend);
+                  this.removeControl(specdivlegend);
+                  this.removeControl(nfichnglegend);
+                  this.removeControl(highcarblegend);
+                  this.removeControl(medcarblegend);
+                  this.removeControl(popdenslegend);
+                  this.removeControl(nfiperlegend);
+                  this.removeControl(osalegend);
+                  this.removeControl(nfilegend);
+                  this.removeControl(speclanlegend);
+                  this.removeControl(tpolegend);
+                  this.removeControl(greenbeltlegend);
+                  this.removeControl(conslegend);
+                  dbhlegend.addTo(this);
+                }
+              if (eventLayer.name === 'Species Count') {
+                  this.removeControl(edilegend);
+                  this.removeControl(treetotlegend);
+                  this.removeControl(dbhlegend);
+                  this.removeControl(treedenlegend);
+                  this.removeControl(juvdenlegend);
+                  this.removeControl(specdivlegend);
+                  this.removeControl(nfichnglegend);
+                  this.removeControl(highcarblegend);
+                  this.removeControl(medcarblegend);
+                  this.removeControl(popdenslegend);
+                  this.removeControl(nfiperlegend);
+                  this.removeControl(osalegend);
+                  this.removeControl(nfilegend);
+                  this.removeControl(speclanlegend);
+                  this.removeControl(tpolegend);
+                  this.removeControl(greenbeltlegend);
+                  this.removeControl(conslegend);
+                  speciesnumlegend.addTo(this);
+                }
+              if (eventLayer.name === 'Tree Density of Area') {
+                  this.removeControl(edilegend);
+                  this.removeControl(treetotlegend);
+                  this.removeControl(dbhlegend);
+                  this.removeControl(speciesnumlegend);
+                  this.removeControl(juvdenlegend);
+                  this.removeControl(specdivlegend);
+                  this.removeControl(nfichnglegend);
+                  this.removeControl(highcarblegend);
+                  this.removeControl(medcarblegend);
+                  this.removeControl(popdenslegend);
+                  this.removeControl(nfiperlegend);
+                  this.removeControl(osalegend);
+                  this.removeControl(nfilegend);
+                  this.removeControl(speclanlegend);
+                  this.removeControl(tpolegend);
+                  this.removeControl(greenbeltlegend);
+                  this.removeControl(conslegend);
+                  treedenlegend.addTo(this);
+                }
+              if (eventLayer.name === 'Juvenile Tree Density of Area') {
+                  this.removeControl(edilegend);
+                  this.removeControl(treetotlegend);
+                  this.removeControl(dbhlegend);
+                  this.removeControl(speciesnumlegend);
+                  this.removeControl(treedenlegend);
+                  this.removeControl(specdivlegend);
+                  this.removeControl(nfichnglegend);
+                  this.removeControl(highcarblegend);
+                  this.removeControl(medcarblegend);
+                  this.removeControl(popdenslegend);
+                  this.removeControl(nfiperlegend);
+                  this.removeControl(osalegend);
+                  this.removeControl(nfilegend);
+                  this.removeControl(speclanlegend);
+                  this.removeControl(tpolegend);
+                  this.removeControl(greenbeltlegend);
+                  this.removeControl(conslegend);
+                  juvdenlegend.addTo(this);
+                }
+              if (eventLayer.name === 'Tree Species Diversity') {
+                  this.removeControl(edilegend);
+                  this.removeControl(treetotlegend);
+                  this.removeControl(dbhlegend);
+                  this.removeControl(speciesnumlegend);
+                  this.removeControl(treedenlegend);
+                  this.removeControl(juvdenlegend);
+                  this.removeControl(nfichnglegend);
+                  this.removeControl(highcarblegend);
+                  this.removeControl(medcarblegend);
+                  this.removeControl(popdenslegend);
+                  this.removeControl(nfiperlegend);
+                  this.removeControl(osalegend);
+                  this.removeControl(nfilegend);
+                  this.removeControl(speclanlegend);
+                  this.removeControl(tpolegend);
+                  this.removeControl(greenbeltlegend);
+                  this.removeControl(conslegend);
+                  specdivlegend.addTo(this);
+                }
+              if (eventLayer.name === 'High Level Carbon Sequestering Area') {
+                  this.removeControl(edilegend);
+                  this.removeControl(treetotlegend);
+                  this.removeControl(dbhlegend);
+                  this.removeControl(speciesnumlegend);
+                  this.removeControl(treedenlegend);
+                  this.removeControl(juvdenlegend);
+                  this.removeControl(specdivlegend);
+                  this.removeControl(nfichnglegend);
+                  this.removeControl(medcarblegend);
+                  this.removeControl(popdenslegend);
+                  this.removeControl(nfiperlegend);
+                  this.removeControl(osalegend);
+                  this.removeControl(nfilegend);
+                  this.removeControl(speclanlegend);
+                  this.removeControl(tpolegend);
+                  this.removeControl(greenbeltlegend);
+                  this.removeControl(conslegend);
+                  highcarblegend.addTo(this);
+                }
+              if (eventLayer.name === 'NFInventory Area Change') {
+                  this.removeControl(edilegend);
+                  this.removeControl(treetotlegend);
+                  this.removeControl(dbhlegend);
+                  this.removeControl(speciesnumlegend);
+                  this.removeControl(treedenlegend);
+                  this.removeControl(juvdenlegend);
+                  this.removeControl(specdivlegend);
+                  this.removeControl(highcarblegend);
+                  this.removeControl(medcarblegend);
+                  this.removeControl(popdenslegend);
+                  this.removeControl(nfiperlegend);
+                  this.removeControl(osalegend);
+                  this.removeControl(nfilegend);
+                  this.removeControl(speclanlegend);
+                  this.removeControl(tpolegend);
+                  this.removeControl(greenbeltlegend);
+                  this.removeControl(conslegend);
+                  nfichnglegend.addTo(this);
+                }
+              if (eventLayer.name === 'Medium Level Carbon Sequestering Area') {
+                  this.removeControl(edilegend);
+                  this.removeControl(treetotlegend);
+                  this.removeControl(dbhlegend);
+                  this.removeControl(speciesnumlegend);
+                  this.removeControl(treedenlegend);
+                  this.removeControl(juvdenlegend);
+                  this.removeControl(specdivlegend);
+                  this.removeControl(nfichnglegend);
+                  this.removeControl(highcarblegend);
+                  this.removeControl(popdenslegend);
+                  this.removeControl(nfiperlegend);
+                  this.removeControl(osalegend);
+                  this.removeControl(nfilegend);
+                  this.removeControl(speclanlegend);
+                  this.removeControl(tpolegend);
+                  this.removeControl(greenbeltlegend);
+                  this.removeControl(conslegend);
+                  medcarblegend.addTo(this);
+                }
+              if (eventLayer.name === 'Human Population Density') {
+                  this.removeControl(edilegend);
+                  this.removeControl(treetotlegend);
+                  this.removeControl(dbhlegend);
+                  this.removeControl(speciesnumlegend);
+                  this.removeControl(treedenlegend);
+                  this.removeControl(juvdenlegend);
+                  this.removeControl(specdivlegend);
+                  this.removeControl(nfichnglegend);
+                  this.removeControl(highcarblegend);
+                  this.removeControl(medcarblegend);
+                  this.removeControl(nfiperlegend);
+                  this.removeControl(osalegend);
+                  this.removeControl(nfilegend);
+                  this.removeControl(speclanlegend);
+                  this.removeControl(tpolegend);
+                  this.removeControl(greenbeltlegend);
+                  this.removeControl(conslegend);
+                  popdenslegend.addTo(this);
+                }
+              if (eventLayer.name === 'NFInventory Woodland % Coverage') {
+                  this.removeControl(edilegend);
+                  this.removeControl(treetotlegend);
+                  this.removeControl(dbhlegend);
+                  this.removeControl(speciesnumlegend);
+                  this.removeControl(treedenlegend);
+                  this.removeControl(juvdenlegend);
+                  this.removeControl(specdivlegend);
+                  this.removeControl(nfichnglegend);
+                  this.removeControl(highcarblegend);
+                  this.removeControl(medcarblegend);
+                  this.removeControl(popdenslegend);
+                  this.removeControl(osalegend);
+                  this.removeControl(nfilegend);
+                  this.removeControl(speclanlegend);
+                  this.removeControl(tpolegend);
+                  this.removeControl(greenbeltlegend);
+                  this.removeControl(conslegend);
+                  nfiperlegend.addTo(this);
+                }
+              if (eventLayer.name === 'Open Space Audit') {
+                  this.removeControl(edilegend);
+                  this.removeControl(treetotlegend);
+                  this.removeControl(dbhlegend);
+                  this.removeControl(speciesnumlegend);
+                  this.removeControl(treedenlegend);
+                  this.removeControl(juvdenlegend);
+                  this.removeControl(specdivlegend);
+                  this.removeControl(nfichnglegend);
+                  this.removeControl(highcarblegend);
+                  this.removeControl(medcarblegend);
+                  this.removeControl(popdenslegend);
+                  this.removeControl(nfiperlegend);
+                  this.removeControl(nfilegend);
+                  this.removeControl(speclanlegend);
+                  this.removeControl(tpolegend);
+                  this.removeControl(greenbeltlegend);
+                  this.removeControl(conslegend);
+                  osalegend.addTo(this);
+                }
+              if (eventLayer.name === 'National Forest Inventory Areas') {
+                  this.removeControl(edilegend);
+                  this.removeControl(treetotlegend);
+                  this.removeControl(dbhlegend);
+                  this.removeControl(speciesnumlegend);
+                  this.removeControl(treedenlegend);
+                  this.removeControl(juvdenlegend);
+                  this.removeControl(specdivlegend);
+                  this.removeControl(nfichnglegend);
+                  this.removeControl(highcarblegend);
+                  this.removeControl(medcarblegend);
+                  this.removeControl(popdenslegend);
+                  this.removeControl(nfiperlegend);
+                  this.removeControl(osalegend);
+                  this.removeControl(speclanlegend);
+                  this.removeControl(tpolegend);
+                  this.removeControl(greenbeltlegend);
+                  this.removeControl(conslegend);
+                  nfilegend.addTo(this);
+                }
+              if (eventLayer.name === 'Special Landscapes') {
+                  this.removeControl(edilegend);
+                  this.removeControl(treetotlegend);
+                  this.removeControl(dbhlegend);
+                  this.removeControl(speciesnumlegend);
+                  this.removeControl(treedenlegend);
+                  this.removeControl(juvdenlegend);
+                  this.removeControl(specdivlegend);
+                  this.removeControl(nfichnglegend);
+                  this.removeControl(highcarblegend);
+                  this.removeControl(medcarblegend);
+                  this.removeControl(popdenslegend);
+                  this.removeControl(nfiperlegend);
+                  this.removeControl(osalegend);
+                  this.removeControl(nfilegend);
+                  this.removeControl(tpolegend);
+                  this.removeControl(greenbeltlegend);
+                  this.removeControl(conslegend);
+                  speclanlegend.addTo(this);
+                }
+              if (eventLayer.name === 'Tree Preservation Orders') {
+                  this.removeControl(edilegend);
+                  this.removeControl(treetotlegend);
+                  this.removeControl(dbhlegend);
+                  this.removeControl(speciesnumlegend);
+                  this.removeControl(treedenlegend);
+                  this.removeControl(juvdenlegend);
+                  this.removeControl(specdivlegend);
+                  this.removeControl(nfichnglegend);
+                  this.removeControl(highcarblegend);
+                  this.removeControl(medcarblegend);
+                  this.removeControl(popdenslegend);
+                  this.removeControl(nfiperlegend);
+                  this.removeControl(osalegend);
+                  this.removeControl(nfilegend);
+                  this.removeControl(speclanlegend);
+                  this.removeControl(greenbeltlegend);
+                  this.removeControl(conslegend);
+                  tpolegend.addTo(this);
+                }
+              if (eventLayer.name === 'Green Belt') {
+                  this.removeControl(edilegend);
+                  this.removeControl(treetotlegend);
+                  this.removeControl(dbhlegend);
+                  this.removeControl(speciesnumlegend);
+                  this.removeControl(treedenlegend);
+                  this.removeControl(juvdenlegend);
+                  this.removeControl(specdivlegend);
+                  this.removeControl(nfichnglegend);
+                  this.removeControl(highcarblegend);
+                  this.removeControl(medcarblegend);
+                  this.removeControl(popdenslegend);
+                  this.removeControl(nfiperlegend);
+                  this.removeControl(osalegend);
+                  this.removeControl(nfilegend);
+                  this.removeControl(speclanlegend);
+                  this.removeControl(tpolegend);
+                  this.removeControl(conslegend);
+                  greenbeltlegend.addTo(this);
+                }
+              if (eventLayer.name === 'Historic Conservation Areas') {
+                  this.removeControl(edilegend);
+                  this.removeControl(treetotlegend);
+                  this.removeControl(dbhlegend);
+                  this.removeControl(speciesnumlegend);
+                  this.removeControl(treedenlegend);
+                  this.removeControl(juvdenlegend);
+                  this.removeControl(specdivlegend);
+                  this.removeControl(nfichnglegend);
+                  this.removeControl(highcarblegend);
+                  this.removeControl(medcarblegend);
+                  this.removeControl(popdenslegend);
+                  this.removeControl(nfiperlegend);
+                  this.removeControl(osalegend);
+                  this.removeControl(nfilegend);
+                  this.removeControl(speclanlegend);
+                  this.removeControl(tpolegend);
+                  this.removeControl(greenbeltlegend);
+                  conslegend.addTo(this);
+                }
+            });
+
+            </script>
+
+        </article>
+
+        <article class="site-content-item-3">
+            <p>
+                some content some content some content some content some content some content some content some content some content
+            </p>
+        </article>
+
+    </section>
+
+
+</main>
+
+</body>
+</html>
