@@ -25,7 +25,7 @@ A user can select an EDI value (0 to 10) from the dropdown value, where EDI valu
 On Submitting the choice, a map with areas belonging to the selected EDI value is displayed. Name of the places can be seen by just hovering over the mouse 
 on each highlighted area/polygon.
 
-City Area profile comparison feature:
+Zone-Wise profile comparison feature:
 A user can compare different zones as per the parameter he/she chooses in radio button. 
 Step 1: Radiobutton Selection
 Following choices are available to the user:
@@ -41,8 +41,7 @@ Float values sometimes create precision error in python scripting so for example
 To mitigate this error we declared all variables in the database as VARCHAR2 to ensure all values are strings which are immutable in python.
 
 
-Improve carbon sequesteration:
-
+EDI Improvement Recommendations:
 The user selects one zone and an EDI target to reach from two dropdown menus.
 The python script calculates which variables are required to be improved to reach the desired target selected
 An SQL database stores attributes of factors used to create the EDI. This includes zone specific values and values used to calculate the EDI.
@@ -76,7 +75,6 @@ Three templates have been used to ensure there is always an output:
 ()If the target EDI selected is lower than the current EDI for the zone selected, further improvements are suggested.
 ()Otherwise, 3 different steps are suggested to increase the EDI.
 
-From the users point-of-view, they are required to input selections into two drop-down menus.
 
 
 
