@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Title, CSS reference, and Font acquisition-->
+<title>Group 6 - CAPITURE</title>
+<link href="CSS/FRONTPAGE.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css2?family=Darker+Grotesque:wght@400;500&family=Jura&family=Montserrat:wght@200&display=swap" rel="stylesheet">
+<!-- Script for the "EDI" Lightbox (navbar link) -->
+<script src="JS/jquery-1.12.4.min.js"></script>
+	<!-- EDI Lightbox Navbar Stylesheet referencing -->
+<link rel="stylesheet" href="CSS/MagnificPopup-EDILightbox.css">
+<script src="JS/jquery.magnific-popup.min.js"></script>
+<script>
+function displaylightbox(url, options)
+{
+   options.items = { src: url };
+   options.type = 'iframe';
+   $.magnificPopup.open(options);
+}
+</script>
+</head>
+<body>
+<!-- Main Container -->
+<div class="container"> 
+  <!-- Navbar and Navbar Links --> 
+  <header>
+    <nav>
+       <div class="small-header" id="top">
+         <img src="Images\Frontpage\carbon-logo.png" alt="C6logo" class="logo">
+         <div class="row">
+             <ul class="main-nav">
+                 <li><a href="https://www.geos.ed.ac.uk/~s2133927/FRONTPAGEtest1.html">HOME</a></li>
+                 <li><a href="https://www.geos.ed.ac.uk/">ABOUT US</a></li>
+                 <li><a href="https://www.geos.ed.ac.uk/~s2133927/DATAPAGEtest1.html">SPATIAL</a></li>
+                 <li><a href="https://www.geos.ed.ac.uk/~s2133927/FORMPAGEtest1.html">QUERYING</a></li>
+				 <li><a href="javascript:displaylightbox('./Lightbox/pg1EDILightbox.html',{})" target="_self">EDI</a></li>
+           </ul>
+         </div>
+	  </div>
+     </nav>
+  </header>
+  <!-- Hero Section (Banner Image Text)-->
+  <section class="hero" id="hero">
+    <h2 class="hero_header">CAPITURE<span class="light">&nbsp;</span></h2>
+    <p class="tagline">carbon sequestration intelligence&nbsp;</p>
+    <p class="tagline">for the carbon in our cities&nbsp;</p>
+  </section>
+  <!-- About Section -->
+  <section class="about" id="about">
+    <h2 class="hidden">About</h2>
+	<div class="infograph">
+	<img src="Images\Frontpage\infographic2.png" alt="Infograph" width="600" height="400" class="infograph">
+	</div>
+    <p class="text_column2"></p>
+    <p class="text_column2">Cities are a major contributor of carbon emissions globally</p> 
+    <p class="text_column2">Our study links carbon sequestration potential with above-ground vegetation within an urban setting to improve greenspaces, down to individual neighbourhoods</p>
+    <p class="text_column2">From this, your city could more easily access grants for nature building, and become a major contributor to the efforts against climate change</p>
+    <p class="text_column2">We provide spatial information and detailed analysis to aid in solving the environmental deprivation inequalities</p>
+    <p class="text_column2">Our sample products showcase what we could do to improve the quality of greenspaces for the City of Edinburgh</p>
+  </section>
+  <!-- Stats Gallery Section -->
+  <div class="gallery">
+    <div class="thumbnail">
+      <h1 class="stats">1</h1>
+      <h4>City</h4>
+      <p class="description">To investigate and summarise its urban carbon capture potential</p>
+    </div>
+    <div class="thumbnail">
+      <h1 class="stats">&lt; 1 metre</h1>
+      <h4>Aerial Image Resolution</h4>
+      <p class="description">To capture the carbon insights of a greenspace at high accuracy</p>
+    </div>
+    <div class="thumbnail">
+      <h1 class="stats">6</h1>
+      <h4>Field Validation Plot</h4>
+      <p class="description">For quality assurance and to assess the environmental standards of greenspaces</p>
+    </div>
+    <div class="thumbnail">
+      <h1 class="stats">104</h1>
+      <h4>Data Zones</h4>
+      <p class="description">For micro-level analysis and policy development</p>
+    </div>
+  </div>
+  <!-- Moving Image Banner Section -->
+  <section class="banner">
+    <h2 class="technique">WHAT WE PROVIDE</h2>
+    <p class="technique_description">Using spatial tools and web programming, we are able to collate and analyse data to develop a carbon based environmental deprivation index. This index can be used to create zone wise action plans that our mapping and database capabilities can facilitate.</p>
+  </section>
+  <!-- More Info Section -->
+  <footer>
+    <article class="footer_column">
+      <h3>Database Querying</h3>
+      <img src="Images\Frontpage\databaseinfo.jpg" alt="Database" class="cards"/>
+      <p>Our database model provides meaningful insight of various carbon sequestration based environmental indicators. This information is beneficial to compare different areas within the city of Edinburgh and identifying factors responsible for environmental deprivation.</p>
+    </article>
+    <article class="footer_column">
+      <h3>Location</h3>
+      <img src="Images\Frontpage\ECECTitleLeg.png" alt="ECEC" class="cards1"/>
+    <p>Our spatial data products provide visualisation of a variety of factors contributing to Edinburgh's potential to sequester carbon. Greenspace case studies contain high resolution imageries to aid in better understanding of Edinburgh's greenspaces.</p>
+    </article>
+  </footer>
+  <!-- Footer Section -->
+  <section class="footer_banner" id="contact">
+    <h2 class="hidden">Footer Banner Section</h2>
+    <p class="hero_header2">Ready to go?</p>
+    <div style=color:black; class="button">EXPLORE</div>
+  </section>
+  <!-- Copyrights Section -->
+  <div class="copyright">&copy;2020-2021 <strong>Capiture</strong></div>
+</div>
+<!-- Main Container Ends -->
+</body>
+</html>
