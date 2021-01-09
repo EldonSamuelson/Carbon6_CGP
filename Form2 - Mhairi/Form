@@ -1,6 +1,42 @@
-README: Forms
-Languages used include 
-Modules used include
+Technical Write up for the forms
+User interface page is built using html, css and JavaScript/JQuery are used for styling the page. This page mainly provides three functionality:
+1. EDI selection feature, that generates a map as per the user's choice of EDI.
+2. City profile comparison feature, that allows a user to choose from a variety of options for comparing different areas of the city amongst each other.
+3. EDI improvement recommendation section, that provides area specific actionable information to improve environmental deprivation in that area.
+
+Backend develoment for the form page is mainly done in python programming language. 
+Oracle is used for creating project database, SQL queries are embedded in python script to dynamically fetch query results directly 
+from the database as and when a choice is made on the form page.
+Common Gateway Interface (CGI) is used for making python scripts work in web environment. 
+Jinja2 template designer is used to avoid typing unnecessary lines of html code in the python script, which further helps in minimizing redundancy.
+Python's Folium library is used to create the leaflet map of the EDI zones and corresponding polygons are plotted on the baselayer as geojson.
+For a better user experience, Environmental Deprivation Index (EDI) is explained separately. Lightbox feature is used which runs jquery(s) in the backend for its functionality. 
+
+To summarise:
+Database used: ORACLE, SQL is used to fetch the dataset from the database. 
+Programming languages used: HTML, CSS, PYTHON, JS/JQuery
+Python Modules used: cx_Oracle, cgi, jinja2, folium, json 
+
+
+Mapping EDI Across Edinburgh City:
+
+A user can select an EDI value (0 to 10) from the dropdown value, where EDI value 0 corresonds to areas with highest environmental deprivation and
+10 corresponds to areas with least environmental deprivation.
+On Submitting the choice, a map with areas belonging to the selected EDI value is displayed. Name of the places can be seen by just hovering over the mouse 
+on each highlighted area/polygon.
+
+City Area profile comparison feature:
+A user can compare different zones as per the parameter he/she chooses in radio button. 
+Step 1: Radiobutton Selection
+Following choices are available to the user:
+1. Demographic Profile
+2. Environmental Profile
+3. Tree-Specific Proile (% of Land Cover)
+4. Tree-Specfic Profile (in Hectares)
+
+Step 2: Selecting a zone (or zones) from search by name dropdown menu (allows multiple selection for a better user experience). 
+
+On Submitting above choices and preferences, a table with corresponding field names/values is displayed in the form of a table.
 
 
 Entitled: Steps in improve carbon sequesteration
