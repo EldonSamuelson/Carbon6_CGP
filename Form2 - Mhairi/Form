@@ -38,17 +38,17 @@ Step 2: Selecting a zone (or zones) from search by name dropdown menu (allows mu
 
 On Submitting above choices and preferences, a table with corresponding field names/values is displayed in the form of a table.
 Float values sometimes create precision error in python scripting so for example a value of 13.0 could become 12.9999999. 
-To mitigate this error we declared all variables as VARCHAR2 to ensure all values are strings which are immutable in python.
+To mitigate this error we declared all variables in the database as VARCHAR2 to ensure all values are strings which are immutable in python.
 
 
 Improve carbon sequesteration:
+
 The user selects one zone and an EDI target to reach from two dropdown menus.
 The python script calculates which variables are required to be improved to reach the desired target selected
 An SQL database stores attributes of factors used to create the EDI. This includes zone specific values and values used to calculate the EDI.
 Since this python script required floats rather than strings, a seperate SQL database was created.
 The database contains zone specific attributes of factors contributing to the EDI rating, as well as derived numbers for calculating the EDI rating.
 Derived values were stored to improve user side performance.
-
 
 Various steps taken to improve the EDI include:
 1. Increasing tree and juvenile count 
@@ -60,7 +60,7 @@ These steps are interrelated to provide a more realistic representation however 
 Assumptions include:
 50% of woodland is high carbon land cover, and the other 50% is medium.
 Population per hectare is not changed as it is not practical for planners to reduce population.
-DBH is also not included because when trees are initially planted they will not be large enough to be counted as trees (DBH>7cm)
+DBH is also not included because when trees are initially planted they will not be large enough to be counted as trees (DBH>7cm).
 Complex growth rates for this long term plan also complicate calculating changes in DBH so it is assumed to be constant.
 
 Throughout the code, variables are assigned to be used to form the output. 
