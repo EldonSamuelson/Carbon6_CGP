@@ -1,0 +1,115 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Untitled Document</title>
+</head>
+The user interface is built using HTML, CSS, Javascript/Jquery, Leaflet.js. Geojson was also used for the map objects. 
+The main functionality of this page is contained in 2 features:
+	A descriptive section and layer preview interface
+	A synchronized map interface where you can examine layers in combination, with guidance and annotation in slide boxes and legends. This section has popup lightbox interfaces where aerial imagery previews are held and provide more detail on the areas which we examined at high resolution and with field work campaigns.  
+
+The front end development for all of this, including formatting and appearance is HTML and CSS.
+All other interactivity, including the maps and lightboxes is javascript and Jquery.
+
+Static and dynamic descriptive content:
+	
+EDI, About me and other sections are held in lightboxes in order to minimize page business while keeping important information on the EDI and the team and project at hand. 
+	
+Another dynamic element of the page is an independently scrolling preview bar of each layer contained in the maps. This has a brief explanation of each of the map sources and methods for making them. 
+	
+The independent scrolling effect was achieved using CSS and HTML column excluders, and was implemented with a scroll-y css function. This allows the user to view the map previews and sources while keeping the maps on page.
+
+Maps and data products:
+Selection of one basemap per map (basemaps can also be the same across maps) and one overlay layer on each, if desired.	
+The maps allow for panning, zooming, click and hover interaction with different elements of the map. 
+The maps used leaflet javascript and css libraries, as well as some external plugins that were written by developers as bespoke interactivity. These will be linked when referred to in this read me.
+	
+	Map icons:
+The two seperate layer selection buttons contain base layer and overlay layer selection in a radio button format. 
+The guidance section (question mark) is held in an activation slide menu that has information on the limitations of the user interface (including what might cause it to break) and how to interact with the map.
+The carbon map descriptor (globe) is held in activation slide menu that has information on the symbology and nature of the carbon sequestration classification. 
+	
+A download button exists on the page that can be used to download some of the data that's in the map from a local file or web URL. This can also be connected to an API to allow for external downloads for databases that allow it.
+
+Leaflet libraries were used to import ready-to-use icons and functionality for the zoom function and layer selection. The basemaps were all acquired from arcgis and cartocdn repositories that allowed for copy-paste API functionality. 
+	
+https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}
+https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png
+https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png
+	
+In-built interactivity was referrenced almost exclusively from builtin leaflet libraries:
+	
+https://unpkg.com/leaflet@1.7.1/dist/leaflet.css
+https://unpkg.com/leaflet@1.7.1/dist/leaflet.js
+	
+Bespoke plugins were powered by customised javascript that was often linked locally but acquired from github:
+	
+	Zoom and pan sync for double map view:
+https://github.com/jieter/Leaflet.Sync
+	Implemented simply by embedding the link to the javascript into the header of your document and then adding <script>map.sync(map1);</script> after calling your maps.
+			
+	In-map sliding menu:
+https://github.com/unbam/Leaflet.SlideMenu
+	Implemented similarly with L.control.slidemenu() and adding text and optional parameters detailed in the github.
+	
+Leaflet AJAX was also used to allow for the inloading of geojsons from a local file:
+	https://cdnjs.cloudflare.com/ajax/libs/leaflet-ajax/2.1.0/leaflet.ajax.min.js
+	Implementation: new L.GeoJSON.AJAX
+	
+The automatic legend was added using an in-built event handler from javascript. This uses Geojson that have been styled using CSS and embedded text which is hard coded into the function. This has to be doubled for functionality in the synchronised map, requiring a high level of boiler plate code.
+	
+	Legend Guidance - https://leafletjs.com/examples/choropleth/
+	BindTooltip Guidance - https://observablehq.com/d/3bad7c5209b5079e
+	Styling Guidance - http://132.72.155.230:3838/js/symbology-and-interactivity.html
+	Geojsons Guidance - https://leafletjs.com/examples/geojson/
+	
+There are various features that could be added with more capacity:
+	
+	A slider to regulate opacity:
+	Could be added to at least the carbon sequestration classification layer in order to allow the user to compare layers and layers with the lcoations on a basemap.
+	Challenges: 
+	The main issue is getting the slider to interact with one layer and map only, and change back to 0 when a layer is switched. Animating the position of the slider with javascript and connecting this to an input defined between html and javascript would also be a unique challenge.
+	Potential Guide:
+	https://github.com/lizardtechblog/Leaflet.OpacityControls
+	
+	Geotiffs in leaflet map:
+	This would allow for geotiffs to be added, with built in georeferencing so it can be accurately placed within map object. This would also allow for styling via CSS in a comparable manner to geojson styling.
+	Challenges:
+	Geotiffs are not not accepted as a standard data format with standard leaflet libraries. Most plug-ins that would adapt for this require at least one other more complex and consumptive plug-in.
+	Potential Guide:
+	https://github.com/danwild/leaflet-geotiff-2
+	
+	Raster IO and User Interface to query raster:
+	Summary statistics from previously mentioned Geotiff, with the user defining the shape they want summary statistics for, within the raster. This shape could be defined by free hand tools, rectangle drawing tools, cookie cutter tools using already existing layers and shapefiles they could introduce.
+	Challenges:
+	The user interface for this would require complex get and post functionality and the ability to hold and upload user data, which would also likely rely on local servers. The backend would probably require python integration with many leaflet or folium interactivities, which could be quite involved and hard to maintain.
+	Potential Guide:
+	https://rasterio.readthedocs.io/en/latest/api/rasterio.mask.html 
+	https://leaflet.github.io/Leaflet.draw/docs/leaflet-draw-latest.html
+
+	Coordinated lightbox gallery:
+	This was attempted but abandoned after a cost-benefit judgement. The gallery would have been interactive and would have had a hover over feature where a photo gallery strip at the bottom of the page would be logically joined to a bouncing marker. This bouncing marker would fall on its location whenever the photo in the gallery was hovered over. Each photo could be clicked on and have a lightbox pop up with an image or pdf. This would have been used to display our aerial imagery previews. 
+	Challenges:
+	May not be operable with current jquery and leaflet versions. Would require various levels of javascript throughout, referring to files. It was largely unstable on first attempt and a lot of the time, introducing one facet onto the map would knock all other facets off.
+	Guides used:
+	https://github.com/utahemre/Leaflet.CoordinatedImagePreview
+	
+	Geojson drag and drop:
+	This would have been a simple user interface that would have allowed for users to drag and drop geojson files onto a map using an SVG/Icon connected to a File I/O. This was dumped in favour for a layer selector (as this would allow for toggling without refreshing) and a download button for one layer.
+	Challenges: Integrating a Google developer interface with a leaflet map. We did not test if this was compatible. 
+	Potential Guide:
+	https://developers.google.com/maps/documentation/javascript/examples/layer-data-dragndrop?hl=sr
+	
+	
+	
+	
+	
+
+
+	
+
+<body>
+</body>
+
+</html>
