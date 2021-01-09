@@ -37,17 +37,24 @@ Following choices are available to the user:
 Step 2: Selecting a zone (or zones) from search by name dropdown menu (allows multiple selection for a better user experience). 
 
 On Submitting above choices and preferences, a table with corresponding field names/values is displayed in the form of a table.
+Float values sometimes create precision error in python scripting so for example a value of 13.0 could become 12.9999999. 
+To mitigate this error we declared all variables as VARCHAR2 to ensure all values are strings which are immutable in python.
 
 
-Entitled: Steps in improve carbon sequesteration
-This form uses a python script () to take the input zone area and user selected target for the zone to reach and calculates which variables are required to improve.
-An SQL database stores attributes of factors used to create the EDI. This includes zone specific values and 
+Improve carbon sequesteration:
+The user selects one zone and an EDI target to reach from two dropdown menus.
+The python script calculates which variables are required to be improved to reach the desired target selected
+An SQL database stores attributes of factors used to create the EDI. This includes zone specific values and values used to calculate the EDI.
+Since this python script required floats rather than strings, a seperate SQL database was created.
+The database contains zone specific attributes of factors contributing to the EDI rating, as well as derived numbers for calculating the EDI rating.
+Derived values were stored to improve user side performance.
+
 
 Various steps taken to improve the EDI include:
-Increasing tree and juvenile count 
-Increase species diversity
-Change medium carbon sequestering land cover to high carbon sequestering land cover which has a greater contribution per hectare than medium.
-Finally, woodland is required to be created.
+1. Increasing tree and juvenile count 
+2. Increase species diversity
+3. Change medium carbon sequestering land cover to high carbon sequestering land cover which has a greater contribution per hectare than medium.
+4. Finally, woodland is required to be created.
 
 These steps are interrelated to provide a more realistic representation however it is recognised that tree growth and structure is complex so many assumptions are required.
 Assumptions include:
