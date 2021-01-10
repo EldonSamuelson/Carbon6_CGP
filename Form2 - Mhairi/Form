@@ -55,15 +55,8 @@ Various steps taken to improve the EDI include:
 3. Change medium carbon sequestering land cover to high carbon sequestering land cover which has a greater contribution per hectare than medium.
 4. Finally, woodland is required to be created.
 
-These steps are interrelated to provide a more realistic representation however it is recognised that tree growth and structure is complex so many assumptions are required.
-Assumptions include:
-50% of woodland is high carbon land cover, and the other 50% is medium.
-Population per hectare is not changed as it is not practical for planners to reduce population.
-DBH is also not included because when trees are initially planted they will not be large enough to be counted as trees (DBH>7cm).
-Complex growth rates for this long term plan also complicate calculating changes in DBH so it is assumed to be constant.
-
 Throughout the code, variables are assigned to be used to form the output. 
-These assigned variables are processed to calulate the increases required for each EDI component.
+These assigned variables are processed to calulate the increase required for each EDI component.
 Sentances are then formed using the relavent assigned variables where strings are formatted with the calculated values.
 Since each calcualtion will not require increases to each variable, there are many different output options.
 The formatted strings are then assigned to variables to be used in jinga2 templates.
@@ -87,3 +80,11 @@ Pie chart designed from AMChart Javascript package (Logo and link contained with
 Aerial Imagery lightbox
 These are all jpegs due to the complexity of ensuring transparency in the backgrounds for aerial images.
 It was therefore more suitable to create static images since no interactivity was required in these pages.
+
+These steps are interrelated to provide a more realistic representation however it is recognised that tree growth and structure is complex so many assumptions are required.
+Assumptions include:
+50% of woodland is high carbon land cover, and the other 50% is medium.
+Population per hectare is not changed as it is not practical for planners to reduce population.
+DBH is also not included because when trees are initially planted they will not be large enough to be counted as trees (DBH>7cm).
+Complex growth rates for this long term plan also complicate calculating changes in DBH so it is assumed to be constant.
+
