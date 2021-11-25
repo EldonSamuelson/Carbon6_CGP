@@ -17,4 +17,5 @@ https://web.archive.org/web/20210704113936/https://www.geos.ed.ac.uk/~s1624036/F
 All data used was open access and attributed to their respective authors (Edinburgh City Council, Scottish Forestry Commission, ESA), however in the unlikely event that someone finds this useful, please cite the work as:
 
 (Chandramauli et al., 2021)
+
 Chandramauli, O'Donnell, S., Tomlinson, J., Vallely, M., Walker, M., and Xiao, Q., 2021.'Edinburgh Carbon Greenspaces Project'. Available Online at: [https://www.geos.ed.ac.uk/~s1624036/FRONTPAGE.html] Last Updated January 2021./[https://web.archive.org/web/20210704113936/https://www.geos.ed.ac.uk/~s1624036/FRONTPAGE.html[Last Updated January 2021, Archived July 2021]].
